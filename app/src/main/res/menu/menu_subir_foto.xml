@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/menu_subirfoto_tomar" android:title="@string/tomar_foto"/>
+    <item android:id="@+id/menu_subirfoto_seleccionar" android:title="@string/seleccionar"/>
+    <item android:id="@+id/menu_subirfoto_eliminar" android:title="@string/eliminar_foto"/>
+</menu>

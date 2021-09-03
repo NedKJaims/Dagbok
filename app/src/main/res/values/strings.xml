@@ -1,0 +1,103 @@
+<resources>
+    <string name="app_name">Dagbok</string>
+
+    <!-- INICIAR SESION LAYOUT -->
+    <string name="iniciar_sesion">Iniciar Sesión</string>
+    <string name="registrarse">Registrarse</string>
+    <string name="se_me_olvido_contrasena">Se me olvido la contraseña</string>
+
+    <!-- REGISTRO LAYOUT -->
+    <string name="registro">Registro paciente</string>
+    <string name="advertencia_registro_doctor">Advertencia: Si usted es doctor, se le recomienda registrarse con un correo intitucional y ponerse en contacto con el desarrollador, o mandar correo a dagbokapk@gmail.com</string>
+
+    <!-- TITULOS MENU PRINCIPAL -->
+    <string name="menu_principal">Menu principal</string>
+    <string name="bienvenido">Bienvenido</string>
+    <string name="cerrar_sesion">Cerrar Sesión</string>
+    <string name="citas">Citas</string>
+    <string name="estatus_consultorio">Consultorio</string>
+    <string name="configuracion">Configuración</string>
+
+    <!-- CAMPOS DE REGISTRO DEL USUARIO -->
+    <string name="nombre">Nombre</string>
+    <string name="apellidos">Apellidos</string>
+    <string name="correo_electronico">Correo electrónico</string>
+    <string name="contrasena">Contraseña</string>
+    <string name="confirmar_contrasena">Confirmar Contraseña</string>
+    <string name="peso">Peso (Kilogramos)</string>
+    <string name="sexo">Sexo</string>
+    <string name="estatura">Estatura (Metros)</string>
+    <string name="fecha_nacimiento">Fecha de nacimiento</string>
+
+    <!-- CONFIGURACION -->
+    <string name="cambiar_foto">Cambiar foto</string>
+    <string name="cambiar_datos">Cambiar Datos</string>
+    <string name="cambiar_datos_doctor">Cambiar datos doctor</string>
+    <string name="cambiar_contrasena">Cambiar Contraseña</string>
+    <string name="eliminar_cuenta">Eliminar Cuenta</string>
+    <string name="soy_doctor">Soy Doctor</string>
+
+    <!-- ERROR FIELDS -->
+    <string name="configuracion_usuario">Configurar usuario</string>
+    <string name="no_se_guardo_usuario_correctamente">No se guardo su usuario correctamente, favor de ir a configuración y cambiar sus datos.</string>
+    <string name="llenar_campo_vacio">LLenar este campo (obligatorio).</string>
+    <string name="contrasena_no_coincide">La contraseña no coincide, favor de verificarla.</string>
+    <string name="error_registro">No se pudo registrar intente mas tarde, por favor.</string>
+    <string name="corre_no_verificado">Correo no verificado, favor de verificar el correo.</string>
+    <string name="no_hay_conexion">No cuenta con conexión, favor de conectarse a la red.</string>
+
+    <!-- ERRORES DE AUTENTIFICACION -->
+    <string name="contraseña_incorrecta">La contraseña es incorrecta.</string>
+    <string name="correo_incorrecto">El correo ingresado no existe o tiene mal formato.</string>
+    <string name="corre_mal_formato">El correo tiene mal formato.</string>
+    <string name="contraseña_debil">La contraseña es débil, favor de ingresar una contraseña con mas de 6 caracteres.</string>
+    <string name="credenciales_invalidas">El correo no es valido, favor de ingresar el correo correctamente.</string>
+    <string name="correo_usado">El correo ya esta en uso, favor de ingresar un nuevo correo.</string>
+
+    <!-- FEEDBACK -->
+    <string name="espere_aviso">Por favor espere…</string>
+    <string name="cambio_datos_exitoso">Se guardaron los datos exitosamente.</string>
+    <string name="error_conexion_correo_creado">Si usted tuvo un error de conexión y el correo ya esta en uso, significa que se creo su correo.</string>
+
+    <!-- AVISOS DE TRANSACCIONES EXITOSOS -->
+    <string name="registro_exitoso">Registro exitoso</string>
+    <string name="se_le_mandara_correo_verificacion">Se le mandara un correo de verificación ala hora de iniciar sesión.</string>
+    <string name="verifique_su_correo">Verifique su correo.</string>
+    <string name="se_mando_correo_verificacion">Se envio a su correo un mensaje de verificación, favor de verificar su cuenta.</string>
+    <string name="se_mando_correo_contraseña">Se envio a su correo un mensaje de recuperación de contraseña.</string>
+
+    <!-- FIELDS -->
+    <string name="seleccionar">Seleccionar</string>
+    <string name="tomar_foto">Tomar Foto</string>
+    <string name="eliminar_foto">Eliminar Foto</string>
+    <string name="aceptar">Aceptar</string>
+    <string name="hombre">Hombre</string>
+    <string name="mujer">Mujer</string>
+
+    <string-array name="meses">
+        <item>Enero</item>
+        <item>Febrero</item>
+        <item>Marzo</item>
+        <item>Abril</item>
+        <item>Mayo</item>
+        <item>Junio</item>
+        <item>Julio</item>
+        <item>Agosto</item>
+        <item>Septiembre</item>
+        <item>Octubre</item>
+        <item>Noviembre</item>
+        <item>Diciembre</item>
+    </string-array>
+
+    <string-array name="dias">
+        <item>Domingo</item>
+        <item>Lunes</item>
+        <item>Martes</item>
+        <item>Miercoles</item>
+        <item>Jueves</item>
+        <item>Viernes</item>
+        <item>Sábado</item>
+    </string-array>
+
+    <string name="todo">TODO</string>
+</resources>
