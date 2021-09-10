@@ -18,15 +18,17 @@
             android:background="@drawable/shape_title_bar"
             android:backgroundTint="@color/verde_primario"
             android:orientation="horizontal">
+
             <ImageButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:layout_margin="10dp"
                 android:backgroundTint="@color/verde_primario"
-                android:src="@drawable/ic_flecha_atras"
-                android:layout_gravity="center"
+                android:contentDescription="@string/todo"
+                android:minHeight="48dp"
                 android:onClick="atras"
-                android:contentDescription="@string/todo" />
+                android:src="@drawable/ic_flecha_atras" />
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -61,6 +63,7 @@
                 android:fontFamily="@font/coolvetica"
                 app:drawableTint="@color/black"
                 android:inputType="text"
+                android:hint="@string/nombre"
                 android:textColor="@color/black"
                 android:importantForAutofill="no"
                 tools:ignore="LabelFor" />
@@ -84,6 +87,7 @@
                 android:ems="10"
                 android:fontFamily="@font/coolvetica"
                 app:drawableTint="@color/black"
+                android:hint="@string/apellidos"
                 android:inputType="text"
                 android:textColor="@color/black"
                 android:importantForAutofill="no"
@@ -109,6 +113,7 @@
                 android:fontFamily="@font/coolvetica"
                 app:drawableTint="@color/black"
                 android:drawableEnd="@drawable/ic_email"
+                android:hint="@string/correo_electronico"
                 android:inputType="textEmailAddress"
                 android:textColor="@color/black"
                 android:importantForAutofill="no"
@@ -136,6 +141,7 @@
                 android:fontFamily="@font/coolvetica"
                 android:inputType="textPassword"
                 app:drawableTint="@color/black"
+                android:hint="@string/contrasena"
                 android:textColor="@color/black"
                 android:importantForAutofill="no"
                 tools:ignore="LabelFor" />
@@ -160,6 +166,7 @@
                 android:fontFamily="@font/coolvetica"
                 android:inputType="textPassword"
                 app:drawableTint="@color/black"
+                android:hint="@string/confirmar_contrasena"
                 android:textColor="@color/black"
                 android:importantForAutofill="no"
                 tools:ignore="LabelFor" />
@@ -184,6 +191,7 @@
                 android:fontFamily="@font/coolvetica"
                 android:inputType="numberDecimal"
                 app:drawableTint="@color/black"
+                android:hint="@string/estatura"
                 android:textColor="@color/black"
                 android:importantForAutofill="no"
                 tools:ignore="LabelFor" />
@@ -207,6 +215,7 @@
                 android:fontFamily="@font/coolvetica"
                 android:inputType="numberDecimal"
                 app:drawableTint="@color/black"
+                android:hint="@string/peso"
                 android:textColor="@color/black"
                 android:importantForAutofill="no"
                 tools:ignore="LabelFor" />
@@ -233,6 +242,7 @@
                 app:drawableTint="@color/black"
                 android:drawableEnd="@drawable/ic_calendar"
                 android:textColor="@color/black"
+                android:hint="@string/fecha_nacimiento"
                 android:importantForAutofill="no"
                 android:onClick="establecerFechaCampo"
                 tools:ignore="LabelFor" />

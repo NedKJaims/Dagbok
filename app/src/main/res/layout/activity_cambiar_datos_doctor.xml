@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/fondo"
+    tools:context=".CambiarDatosDoctor">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shape_title_bar"
+            android:backgroundTint="@color/verde_primario"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="10dp"
+                android:backgroundTint="@color/verde_primario"
+                android:contentDescription="@string/todo"
+                android:minHeight="48dp"
+                android:onClick="atras"
+                android:src="@drawable/ic_flecha_atras" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="65dp"
+                android:layout_marginVertical="20dp"
+                android:text="@string/cambiar_datos_doctor"
+                android:textSize="28sp"
+                android:textAlignment="center"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:fontFamily="@font/coolvetica" />
+        </LinearLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:hint="@string/especialidades"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="10dp"
+            app:boxBackgroundMode="filled"
+            app:boxStrokeWidth="0dp"
+            app:boxStrokeWidthFocused="0dp"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+            <EditText
+                android:id="@+id/cambiarDatosDoctor_especialidad_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape_edit_text"
+                android:ems="10"
+                android:fontFamily="@font/coolvetica"
+                app:drawableTint="@color/black"
+                android:hint="@string/especialidades"
+                android:inputType="textMultiLine"
+                android:minLines="3"
+                android:textColor="@color/black"
+                android:focusable="false"
+                android:clickable="false"
+                android:importantForAutofill="no"
+                tools:ignore="LabelFor" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="2"
+            android:orientation="horizontal">
+
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_marginHorizontal="10dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                android:layout_weight="1"
+                android:background="@drawable/shape_button"
+                android:fontFamily="@font/coolvetica"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:text="@string/agregar"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="24sp"
+                app:backgroundTint="@color/azul"
+                android:onClick="agregarEspecialidad"
+                tools:ignore="ButtonStyle,DuplicateSpeakableTextCheck" />
+
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_marginHorizontal="10dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                android:layout_weight="1"
+                android:background="@drawable/shape_button"
+                android:fontFamily="@font/coolvetica"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:text="@string/remover"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="24sp"
+                app:backgroundTint="@color/rojo"
+                android:onClick="removerEspecialidad"
+                tools:ignore="ButtonStyle,DuplicateSpeakableTextCheck" />
+        </LinearLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:hint="@string/horarios"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="10dp"
+            app:boxBackgroundMode="filled"
+            app:boxStrokeWidth="0dp"
+            app:boxStrokeWidthFocused="0dp"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+            <EditText
+                android:id="@+id/cambiarDatosDoctor_horarios_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape_edit_text"
+                android:ems="10"
+                android:fontFamily="@font/coolvetica"
+                app:drawableTint="@color/black"
+                android:hint="@string/horarios"
+                android:inputType="textMultiLine"
+                android:minLines="3"
+                android:textColor="@color/black"
+                android:focusable="false"
+                android:clickable="false"
+                android:importantForAutofill="no"
+                tools:ignore="LabelFor" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="2"
+            android:orientation="horizontal">
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_weight="1"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/shape_button"
+                app:backgroundTint="@color/azul"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:text="@string/agregar"
+                android:textColor="@color/white"
+                android:fontFamily="@font/coolvetica"
+                android:layout_marginTop="20dp"
+                android:textSize="24sp"
+                android:textAllCaps="false"
+                android:onClick="agregarHorario"
+                android:layout_marginHorizontal="10dp"
+                tools:ignore="ButtonStyle" />
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_weight="1"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/shape_button"
+                app:backgroundTint="@color/rojo"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:text="@string/remover"
+                android:textColor="@color/white"
+                android:fontFamily="@font/coolvetica"
+                android:layout_marginTop="20dp"
+                android:textSize="24sp"
+                android:textAllCaps="false"
+                android:onClick="removerHorario"
+                android:layout_marginHorizontal="10dp"
+                tools:ignore="ButtonStyle" />
+        </LinearLayout>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/shape_button"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:text="@string/cambiar_datos"
+            android:textColor="@color/black"
+            android:fontFamily="@font/coolvetica"
+            android:layout_marginTop="20dp"
+            android:textSize="24sp"
+            android:textAllCaps="false"
+            android:layout_marginHorizontal="10dp"
+            android:onClick="guardarDatosDoctor"
+            tools:ignore="ButtonStyle" />
+
+    </LinearLayout>
+
+
+</ScrollView>

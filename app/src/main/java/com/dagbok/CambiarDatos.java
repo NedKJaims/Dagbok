@@ -137,33 +137,26 @@ public class CambiarDatos extends AppCompatActivity {
             cargando.show();
             int sex = sexo.getCheckedRadioButtonId() == R.id.hombre ? 0 : 1;
             if(Global.usuario == null) {
-                //TODO AQUI VA LA CARGA DE DATOS SEGUN PACIENTE
                 Global.usuario = new Usuario(nombre.getText().toString(), apellidos.getText().toString(),
                         fecha, Float.parseFloat(estatura.getText().toString()),
                         Float.parseFloat(peso.getText().toString()), sex);
             } else {
-                //TODO AQUI VA LA CARGA DE DATOS SEGUN DOCTOR O PACIENTE
-                if(Global.usuario.isEsDoctor()) {
-                    Toast.makeText(CambiarDatos.this, "ESTA EN PROCESO", Toast.LENGTH_LONG).show();
-                } else {
-                    Global.usuario.setNombre(nombre.getText().toString());
-                    Global.usuario.setApellidos(apellidos.getText().toString());
-                    Global.usuario.setFechaNacimiento(fecha);
-                    Global.usuario.setEstatura(Float.parseFloat(estatura.getText().toString()));
-                    Global.usuario.setPeso(Float.parseFloat(peso.getText().toString()));
-                    Global.usuario.setSexo(sex);
-                }
+                Global.usuario.setNombre(nombre.getText().toString());
+                Global.usuario.setApellidos(apellidos.getText().toString());
+                Global.usuario.setFechaNacimiento(fecha);
+                Global.usuario.setEstatura(Float.parseFloat(estatura.getText().toString()));
+                Global.usuario.setPeso(Float.parseFloat(peso.getText().toString()));
+                Global.usuario.setSexo(sex);
             }
-            FirebaseFirestore.getInstance().document("Usuarios/".concat(Global.firebaseUsuario.getUid()))
-                    .set(Global.usuario, SetOptions.merge()).addOnSuccessListener(unused -> {
-                        setResult(Global.CAMBIO_DATOS);
-                        cargando.dismiss();
-                        Toast.makeText(CambiarDatos.this, R.string.cambio_datos_exitoso, Toast.LENGTH_LONG).show();
-                        finish();
-                    }). addOnFailureListener(e -> {
-                        Toast.makeText(CambiarDatos.this, R.string.no_hay_conexion, Toast.LENGTH_LONG).show();
-                        cargando.dismiss();
-                    });
+            FirebaseFirestore.getInstance().document("Usuarios/".concat(Global.firebaseUsuario.getUid())).set(Global.usuario, SetOptions.merge()).addOnSuccessListener(unused -> {
+                setResult(Global.CAMBIO_DATOS);
+                cargando.dismiss();
+                Toast.makeText(CambiarDatos.this, R.string.cambio_datos_exitoso, Toast.LENGTH_LONG).show();
+                finish();
+            }). addOnFailureListener(e -> {
+                Toast.makeText(CambiarDatos.this, R.string.no_hay_conexion, Toast.LENGTH_LONG).show();
+                cargando.dismiss();
+            });
 
         }
     }

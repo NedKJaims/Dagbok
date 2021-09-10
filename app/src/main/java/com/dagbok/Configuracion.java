@@ -12,21 +12,25 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.text.InputType;
+import android.view.Gravity;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.PopupMenu;
 import android.widget.Toast;
 
 import com.dagbok.globals.Global;
+import com.dagbok.objetos.Doctor;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.SetOptions;
 import com.google.firebase.storage.FirebaseStorage;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Objects;
-
 
 public class Configuracion extends AppCompatActivity {
 
@@ -105,6 +109,7 @@ public class Configuracion extends AppCompatActivity {
         } else {
             if(Global.usuario.isEsDoctor()) {
                 findViewById(R.id.configuracion_soyDoctor_button).setEnabled(false);
+                findViewById(R.id.configuracion_cambioDatosDoc_button).setEnabled(true);
             } else {
                 findViewById(R.id.configuracion_cambioDatosDoc_button).setEnabled(false);
             }
@@ -138,6 +143,14 @@ public class Configuracion extends AppCompatActivity {
                 cargando.dismiss();
             }).addOnFailureListener(falloConexion);
         }).addOnFailureListener(falloConexion);
+    }
+
+    private void mostrarErrorKeyInvalida() {
+        cargando.dismiss();
+        Toast mensaje = Toast.makeText(Configuracion.this, R.string.key_invalida, Toast.LENGTH_LONG);
+        mensaje.setGravity(Gravity.BOTTOM, 0, 0);
+        mensaje.show();
+
     }
 
     //evento de botones de interfaz
@@ -182,5 +195,75 @@ public class Configuracion extends AppCompatActivity {
                 .addOnFailureListener(falloConexion);
     }
 
+    public void soyDoctor(View v) {
+        if(Global.usuario == null)
+            return;
+        AlertDialog.Builder builder = new AlertDialog.Builder(Configuracion.this);
+        builder.setTitle(R.string.ingrese_key);
+        final EditText key = new EditText(Configuracion.this);
+        key.setInputType(InputType.TYPE_CLASS_TEXT);
+        builder.setView(key);
+        builder.setPositiveButton(R.string.aceptar, (dialogInterface, i) -> {
+            cargando.show();
+            String texto = key.getText().toString();
+            if(texto.isEmpty()) {
+                key.setError(getString(R.string.llenar_campo_vacio));
+            } else {
+                FirebaseFirestore.getInstance().document("Consultorio/TODO").get().addOnSuccessListener(documentSnapshot -> {
+                    if(documentSnapshot.exists()) {
+                        String keyDoc = documentSnapshot.get("soyDoctor", String.class);
+                        if(keyDoc != null) {
+                            if (keyDoc.matches(texto)) {
+                                Doctor doctor = new Doctor(Global.usuario);
+                                FirebaseFirestore.getInstance().document("Usuarios/".concat(Global.firebaseUsuario.getUid())).set(doctor, SetOptions.merge()).addOnSuccessListener(unused -> {
+                                    Global.usuario = doctor;
+                                    cargando.dismiss();
+                                    Toast.makeText(Configuracion.this, R.string.cambio_datos_exitoso, Toast.LENGTH_LONG).show();
+                                    setResult(Global.CAMBIO_DATOS);
+                                    activarBotonesNecesarios();
+                                }).addOnFailureListener(falloConexion);
+
+                            } else {
+                                mostrarErrorKeyInvalida();
+                            }
+                        } else {
+                            mostrarErrorKeyInvalida();
+                        }
+                    } else {
+                        mostrarErrorKeyInvalida();
+                    }
+                }).addOnFailureListener(falloConexion);
+            }
+
+        });
+        builder.setNegativeButton(R.string.cancelar, null);
+        builder.show();
+    }
+
+    public void cambioDatosDoctor(View v) {
+        Intent cambioDatosDoctor = new Intent(Configuracion.this, CambiarDatosDoctor.class);
+        resultLauncher.launch(cambioDatosDoctor);
+    }
+
+    public void eliminarCuenta(View v) {
+        if(Global.sesionReciente) {
+            cargando.show();
+            Global.firebaseUsuario.delete().addOnSuccessListener(unused -> {
+                setResult(Global.ELIMINAR_CUENTA);
+                String id = "Usuarios/".concat(Global.firebaseUsuario.getUid());
+                FirebaseStorage.getInstance().getReference().child(id).delete().addOnSuccessListener(unused1 -> {
+                    cargando.dismiss();
+                    Toast.makeText(Configuracion.this, R.string.eliminar_cuenta_exitosa, Toast.LENGTH_LONG).show();
+                    finish();
+                }).addOnFailureListener(e -> {
+                    cargando.dismiss();
+                    Toast.makeText(Configuracion.this, R.string.eliminar_cuenta_exitosa, Toast.LENGTH_LONG).show();
+                    finish();
+                });
+            }).addOnFailureListener(falloConexion);
+        } else {
+            Toast.makeText(Configuracion.this, R.string.inicie_sesion_borrar_cuenta, Toast.LENGTH_LONG).show();
+        }
+    }
 
 }

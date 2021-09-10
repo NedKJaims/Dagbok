@@ -55,6 +55,7 @@
                     app:boxStrokeWidth="0dp"
                     app:boxStrokeWidthFocused="0dp"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
                     <EditText
                         android:id="@+id/iniciosesion_correo_text"
                         android:layout_width="match_parent"
@@ -63,11 +64,12 @@
                         android:drawableEnd="@drawable/ic_email"
                         android:ems="10"
                         android:fontFamily="@font/coolvetica"
-                        app:drawableTint="@color/black"
+                        android:hint="@string/correo_electronico"
+                        android:importantForAutofill="no"
                         android:inputType="textEmailAddress"
                         android:textColor="@color/black"
-                        android:importantForAutofill="no"
-                        tools:ignore="LabelFor" />
+                        app:drawableTint="@color/black"
+                        tools:ignore="LabelFor,TextContrastCheck,TextContrastCheck" />
                 </com.google.android.material.textfield.TextInputLayout>
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_height="wrap_content"
@@ -81,6 +83,7 @@
                     app:passwordToggleTint="@color/black"
                     app:boxStrokeWidthFocused="0dp"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
                     <EditText
                         android:id="@+id/iniciosesion_contraseña_text"
                         android:layout_width="match_parent"
@@ -88,26 +91,28 @@
                         android:background="@drawable/shape_edit_text"
                         android:ems="10"
                         android:fontFamily="@font/coolvetica"
-                        android:inputType="textPassword"
-                        app:drawableTint="@color/black"
-                        android:textColor="@color/black"
+                        android:hint="@string/contrasena"
                         android:importantForAutofill="no"
-                        tools:ignore="LabelFor" />
+                        android:inputType="textPassword"
+                        android:textColor="@color/black"
+                        app:drawableTint="@color/black"
+                        tools:ignore="LabelFor,TextContrastCheck" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <Button
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
-                    android:background="@drawable/shape_button"
-                    android:foreground="?android:attr/selectableItemBackground"
-                    android:text="@string/iniciar_sesion"
-                    android:textColor="@color/black"
-                    android:fontFamily="@font/coolvetica"
+                    android:layout_marginHorizontal="10dp"
                     android:layout_marginTop="20dp"
-                    android:textSize="24sp"
-                    android:textAllCaps="false"
+                    android:background="@drawable/shape_button"
+                    android:fontFamily="@font/coolvetica"
+                    android:foreground="?android:attr/selectableItemBackground"
                     android:onClick="iniciarSesion"
-                    android:layout_marginHorizontal="10dp" />
+                    android:text="@string/iniciar_sesion"
+                    android:textAllCaps="false"
+                    android:textColor="@color/black"
+                    android:textSize="24sp"
+                    tools:ignore="DuplicateSpeakableTextCheck" />
                 <Button
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
@@ -132,12 +137,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|center"
-        android:text="@string/se_me_olvido_contrasena"
-        android:textSize="16sp"
+        android:gravity="bottom"
         android:layout_marginBottom="10dp"
         android:fontFamily="@font/coolvetica"
+        android:minHeight="48dp"
         android:onClick="olvidoContrasena"
-        android:textColor="@color/black"/>
+        android:text="@string/se_me_olvido_contrasena"
+        android:textColor="@color/black"
+        android:textSize="16sp" />
 
 
 </LinearLayout>

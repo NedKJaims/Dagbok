@@ -10,6 +10,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.dagbok.globals.Global;
+import com.dagbok.objetos.Doctor;
 import com.dagbok.objetos.Usuario;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
@@ -26,14 +27,22 @@ public class InicioSesion extends AppCompatActivity {
     private EditText correo;
     private EditText contrasena;
 
+    private AlertDialog cargando;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_inicio_sesion);
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(InicioSesion.this);
+        builder.setView(R.layout.popup_cargando_datos);
+        builder.setCancelable(false);
+        cargando = builder.create();
+
         inicioPrevio();
+
         correo = findViewById(R.id.iniciosesion_correo_text);
         contrasena = findViewById(R.id.iniciosesion_contraseña_text);
-
     }
 
     //Otras funciones
@@ -42,21 +51,32 @@ public class InicioSesion extends AppCompatActivity {
         if(user != null) {
             if(user.isEmailVerified()) {
                 Global.firebaseUsuario = user;
+                Global.sesionReciente = false;
                 cargarDatosUsuarioMenuPrincipal(user.getUid());
             }
         }
     }
 
     private void cargarDatosUsuarioMenuPrincipal(String id) {
+        cargando.show();
         FirebaseFirestore.getInstance().document("Usuarios/".concat(id)).get().addOnSuccessListener(documentSnapshot -> {
             Usuario usuario = null;
             if(documentSnapshot.exists()) {
                 usuario = documentSnapshot.toObject(Usuario.class);
+                assert usuario != null;
+                if(usuario.isEsDoctor()) {
+                    usuario = documentSnapshot.toObject(Doctor.class);
+                }
             }
             Global.usuario = usuario;
             Intent menuPrincipal = new Intent(InicioSesion.this, MenuPrincipal.class);
+            cargando.dismiss();
+            finish();
             startActivity(menuPrincipal);
-        }).addOnFailureListener(e -> Toast.makeText(InicioSesion.this, R.string.no_hay_conexion, Toast.LENGTH_LONG).show());
+        }).addOnFailureListener(e -> {
+            Toast.makeText(InicioSesion.this, R.string.no_hay_conexion, Toast.LENGTH_LONG).show();
+            cargando.dismiss();
+        });
     }
 
     private boolean algunCampoVacio() {
@@ -112,26 +132,26 @@ public class InicioSesion extends AppCompatActivity {
     //Botones
     public void iniciarSesion(View v) {
         if(!algunCampoVacio()) {
-            FirebaseAuth.getInstance().signInWithEmailAndPassword(correo.getText().toString(), contrasena.getText().toString())
-                .addOnCompleteListener(task -> {
-                    if(task.isSuccessful()) {
-                        FirebaseUser user = Objects.requireNonNull(Objects.requireNonNull(task.getResult()).getUser());
-                        if(user.isEmailVerified()) {
-                            Global.firebaseUsuario = user;
-                            cargarDatosUsuarioMenuPrincipal(user.getUid());
-                        } else {
-                            user.sendEmailVerification().addOnCompleteListener(task1 -> {
-                                if(task1.isSuccessful()) {
-                                    mostrarMensajeVerificacionCorreo();
-                                } else {
-                                    Toast.makeText(InicioSesion.this, R.string.no_hay_conexion, Toast.LENGTH_LONG).show();
-                                }
-                            });
-                        }
+            FirebaseAuth.getInstance().signInWithEmailAndPassword(correo.getText().toString(), contrasena.getText().toString()).addOnCompleteListener(task -> {
+                if(task.isSuccessful()) {
+                    FirebaseUser user = Objects.requireNonNull(Objects.requireNonNull(task.getResult()).getUser());
+                    if(user.isEmailVerified()) {
+                        Global.firebaseUsuario = user;
+                        Global.sesionReciente = true;
+                        cargarDatosUsuarioMenuPrincipal(user.getUid());
                     } else {
-                        mostrarErrorDeInicioSesion(Objects.requireNonNull(task.getException()));
+                        user.sendEmailVerification().addOnCompleteListener(task1 -> {
+                            if(task1.isSuccessful()) {
+                                mostrarMensajeVerificacionCorreo();
+                            } else {
+                                Toast.makeText(InicioSesion.this, R.string.no_hay_conexion, Toast.LENGTH_LONG).show();
+                            }
+                        });
                     }
-                });
+                } else {
+                    mostrarErrorDeInicioSesion(Objects.requireNonNull(task.getException()));
+                }
+            });
         }
     }
 

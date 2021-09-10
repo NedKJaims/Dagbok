@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RadioGroup
+            android:id="@+id/popup_cambio_datos_doctor_dia_group"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:checkedButton="@id/domingo">
+            <RadioButton
+                android:id="@+id/domingo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/domingo"
+                android:textColor="@color/black"/>
+            <RadioButton
+                android:id="@+id/lunes"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/lunes"
+                android:textColor="@color/black"/>
+            <RadioButton
+                android:id="@+id/martes"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/martes"
+                android:textColor="@color/black"/>
+            <RadioButton
+                android:id="@+id/miercoles"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/miercoles"
+                android:textColor="@color/black"/>
+            <RadioButton
+                android:id="@+id/jueves"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/jueves"
+                android:textColor="@color/black"/>
+            <RadioButton
+                android:id="@+id/viernes"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/viernes"
+                android:textColor="@color/black"/>
+            <RadioButton
+                android:id="@+id/sabado"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/sabado"
+                android:textColor="@color/black"/>
+        </RadioGroup>
+
+        <EditText
+            android:id="@+id/popup_cambio_datos_doctor_desde_text"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:focusable="false"
+            android:inputType="datetime"
+            android:textColor="@color/black"
+            android:hint="@string/desde"
+            tools:ignore="Autofill,LabelFor"/>
+
+        <EditText
+            android:id="@+id/popup_cambio_datos_doctor_hasta_text"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginBottom="10dp"
+            android:focusable="false"
+            android:inputType="datetime"
+            android:textColor="@color/black"
+            android:hint="@string/hasta"
+            tools:ignore="Autofill,LabelFor" />
+
+    </LinearLayout>
+</ScrollView>

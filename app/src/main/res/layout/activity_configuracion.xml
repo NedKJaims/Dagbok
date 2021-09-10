@@ -18,19 +18,22 @@
             android:background="@drawable/shape_title_bar"
             android:backgroundTint="@color/verde_primario"
             android:orientation="horizontal">
+
             <ImageButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:layout_margin="10dp"
                 android:backgroundTint="@color/verde_primario"
-                android:src="@drawable/ic_flecha_atras"
-                android:layout_gravity="center"
+                android:contentDescription="@string/todo"
+                android:minHeight="48dp"
                 android:onClick="atras"
-                android:contentDescription="@string/todo" />
+                android:src="@drawable/ic_flecha_atras" />
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="65dp"
+                android:gravity="center"
                 android:layout_marginVertical="20dp"
                 android:text="@string/configuracion"
                 android:textSize="28sp"
@@ -84,6 +87,7 @@
             android:layout_marginTop="20dp"
             android:textSize="24sp"
             android:textAllCaps="false"
+            android:onClick="soyDoctor"
             android:layout_marginHorizontal="10dp" />
         <Button
             android:id="@+id/configuracion_cambioDatosDoc_button"
@@ -98,6 +102,7 @@
             android:layout_marginTop="20dp"
             android:textSize="24sp"
             android:textAllCaps="false"
+            android:onClick="cambioDatosDoctor"
             android:layout_marginHorizontal="10dp" />
         <Button
             android:layout_width="match_parent"
@@ -127,6 +132,7 @@
             android:layout_marginTop="20dp"
             android:textSize="24sp"
             android:textAllCaps="false"
+            android:onClick="eliminarCuenta"
             android:layout_marginHorizontal="10dp" />
     </LinearLayout>
 

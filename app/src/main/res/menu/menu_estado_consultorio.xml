@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/disponible" android:title="@string/disponible"/>
+    <item android:id="@+id/ocupado" android:title="@string/ocupado"/>
+    <item android:id="@+id/cerrado" android:title="@string/cerrado"/>
+</menu>

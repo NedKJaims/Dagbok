@@ -4,16 +4,28 @@
 
     <application
         android:allowBackup="true"
+        android:fullBackupContent="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Dagbok">
-        <activity android:name=".CambiarDatos"></activity>
+        <activity
+            android:name=".DoctorEstatusConsultorio"
+            android:exported="true" />
+        <activity
+            android:name=".PacienteEstatusConsultorio"
+            android:exported="true" />
+        <activity
+            android:name=".CambiarDatosDoctor"
+            android:exported="true" />
+        <activity android:name=".CambiarDatos" />
         <activity android:name=".Configuracion" />
         <activity android:name=".MenuPrincipal" />
         <activity android:name=".Registro" />
-        <activity android:name=".InicioSesion">
+        <activity
+            android:name=".InicioSesion"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

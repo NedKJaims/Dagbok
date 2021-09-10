@@ -35,14 +35,20 @@
                 android:textSize="20sp"
                 android:textColor="@color/black"
                 android:fontFamily="@font/coolvetica"/>
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/menuPrincipal_foto_image"
+            <androidx.cardview.widget.CardView
                 android:layout_width="110dp"
                 android:layout_height="110dp"
-                android:layout_gravity="center"
-
-                android:src="@drawable/ic_no_disponible"
-                android:contentDescription="@string/todo"/>
+                app:cardCornerRadius="55dp"
+                android:backgroundTint="@color/verde_fondo"
+                android:layout_gravity="center">
+                <ImageView
+                    android:id="@+id/menuPrincipal_foto_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/ic_no_disponible"
+                    android:scaleType="fitXY"
+                    android:contentDescription="@string/todo" />
+            </androidx.cardview.widget.CardView>
             <TextView
                 android:id="@+id/menuPrincipal_nombre_text"
                 android:layout_width="match_parent"
@@ -76,6 +82,7 @@
                     android:focusable="true"
                     android:clickable="true"
                     android:layout_marginHorizontal="2dp"
+                    android:onClick="estatusConsultorio"
                     app:cardBackgroundColor="@color/azul">
 
                     <LinearLayout
@@ -115,6 +122,7 @@
                     android:focusable="true"
                     android:clickable="true"
                     android:layout_marginHorizontal="2dp"
+                    android:onClick="citas"
                     app:cardBackgroundColor="@color/azul">
 
                     <LinearLayout
@@ -128,8 +136,9 @@
                             android:layout_height="match_parent"
                             android:layout_margin="10dp"
                             android:layout_weight="1"
+                            android:contentDescription="@string/todo"
                             app:srcCompat="@drawable/ic_citas"
-                            android:contentDescription="@string/todo"/>
+                            tools:ignore="ImageContrastCheck" />
 
                         <TextView
                             android:layout_width="match_parent"
