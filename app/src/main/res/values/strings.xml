@@ -35,6 +35,21 @@
     <string name="desde">Desde</string>
     <string name="hasta">Hasta</string>
 
+    <!-- AGREGAR CITA -->
+    <string name="correo_paciente_ast">Correo del paciente*</string>
+    <string name="fecha_ast">Fecha*</string>
+    <string name="subcitas">Subcitas</string>
+    <string name="no_encontro_usuario">No se encontro un usuario con ese correo</string>
+    <string name="no_hay_usuario_cita">No ha buscado un usuario</string>
+    <string name="fecha_repetida">Esa fecha ya esta seleccionada, ingrese otra fecha no repetida</string>
+    <string name="no_hay_tratamientos">No hay tratamientos</string>
+    <string name="agregar_tratamiento">Agregar tratamiento</string>
+    <string name="busque_usuario">Busque un usuario primero, recuerde seleccionar la lupa.</string>
+    <string name="asigne_fecha">Primero asigne una fecha base.</string>
+    <string name="fecha_desfazada_menor">La fecha es menor a la fecha base, ingrese otra.</string>
+    <string name="enfermedad_ast">Enfermedad*</string>
+    <string name="no_hay_sub_fechas">No se han agregado subfechas, ingrese primero una</string>
+
     <!-- ESTATUS CONSULTORIO -->
     <string name="tomar_turno">Tomar turno</string>
     <string name="finalizar_turno">Terminar turno</string>
@@ -48,6 +63,26 @@
     <string name="eliminar_cuenta">Eliminar Cuenta</string>
     <string name="soy_doctor">Soy Doctor</string>
     <string name="ingrese_key">Ingrese el KEY</string>
+
+    <!-- LISTA DE CITAS -->
+    <string name="no_hay_propuestas">No hay propuestas</string>
+    <string name="no_hay_citas">No hay citas</string>
+    <string name="nueva_propuesta">Nueva propuesta</string>
+    <string name="ultima_propuesta">Ultima propuesta</string>
+    <string name="ver_mas">Ver mas</string>
+    <string name="nuevas_activas">Citas Nuevas</string>
+    <string name="viejas_no_activas">Citas Anteriores</string>
+
+    <!-- INFORMACION CITA -->
+    <string name="informacion_cita">Información Cita</string>
+    <string name="proceso_colon">Proceso:</string>
+    <string name="fecha_colon">Fecha:</string>
+    <string name="proximas_citas">Proximas citas</string>
+    <string name="no_hay_proximas_citas">No hay proximas citas</string>
+    <string name="receta">Receta</string>
+    <string name="no_hay_receta">No hay receta</string>
+    <string name="editar_cita">Editar Cita</string>
+    <string name="descripcion_colon">Descripción:</string>
 
     <!-- ERROR FIELDS -->
     <string name="configuracion_usuario">Configurar usuario</string>
@@ -79,6 +114,7 @@
     <string name="inicie_sesion_borrar_cuenta">Para eliminar la cuenta cierre la sesión e inicie sesión, despues intentelo de nuevo.</string>
     <string name="error_conexion_correo_creado">Si usted tuvo un error de conexión y el correo ya esta en uso, significa que se creo su correo.</string>
     <string name="no_puede_terminar_turno_no_suyo">Usted no esta en turno, no puede terminar algo que no empezo.</string>
+    <string name="agrego_cita">Se agendo la cita correctamente</string>
 
     <!-- AVISOS DE TRANSACCIONES EXITOSOS -->
     <string name="registro_exitoso">Registro exitoso</string>
@@ -96,18 +132,23 @@
     <string name="agregar">Agregar</string>
     <string name="agregar_especialidad">Agregar Especialidad</string>
     <string name="agregar_horario">Agregar Horario</string>
+    <string name="agregar_peticion">Agregar Peticion</string>
+    <string name="agregar_cita">Agregar Cita</string>
     <string name="remover">Remover</string>
     <string name="remover_especialidad">Remover Especialidad</string>
     <string name="remover_horario">Remover Horario</string>
     <string name="seleccione_dia">Seleccione el día</string>
     <string name="estatus">Estatus</string>
     <string name="doctor">Doctor</string>
+    <string name="descripcion">Descripción</string>
     <string name="paciente">Paciente</string>
     <string name="disponible">Disponible</string>
     <string name="ocupado">Ocupado</string>
     <string name="cerrado">Cerrado</string>
     <string name="hombre">Hombre</string>
     <string name="mujer">Mujer</string>
+    <string name="enfermedad_colon">Enfermedad:</string>
+    <string name="paciente_colon">Paciente:</string>
 
     <string-array name="meses">
         <item>Enero</item>

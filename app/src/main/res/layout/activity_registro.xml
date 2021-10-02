@@ -304,8 +304,6 @@
             android:onClick="registrar"
             android:layout_marginHorizontal="10dp" />
 
-
-
     </LinearLayout>
 
 </ScrollView>

@@ -1,7 +1,9 @@
 package com.dagbok.globals;
 
-import android.app.Activity;
+import android.content.Context;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
 
 import com.dagbok.R;
 import com.dagbok.objetos.Usuario;
@@ -9,6 +11,7 @@ import com.google.firebase.auth.FirebaseUser;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Objects;
 
 public class Global {
@@ -23,8 +26,9 @@ public class Global {
 
     public static final int CAMBIO_DATOS = 100;
     public static final int ELIMINAR_CUENTA = 101;
+    public static final int AGREGO_CITA = 102;
 
-    public static String crearFormatoHora(Activity activity, int hora, int minutos) {
+    public static String crearFormatoHora(Context activity, int hora, int minutos) {
         String result;
         SimpleDateFormat f = new SimpleDateFormat("HH:mm", activity.getResources().getConfiguration().locale);
         SimpleDateFormat newf = new SimpleDateFormat("hh:mm a", activity.getResources().getConfiguration().locale);
@@ -36,6 +40,16 @@ public class Global {
             result = null;
         }
         return result;
+    }
+
+    public static String crearFormatoTiempo(Context activity, @NonNull Calendar calendar) {
+        return activity.getResources().getStringArray(R.array.dias)[calendar.get(Calendar.DAY_OF_WEEK) - 1] +
+                ", " +
+                calendar.get(Calendar.DAY_OF_MONTH) +
+                " / " +
+                activity.getResources().getStringArray(R.array.meses)[calendar.get(Calendar.MONTH)] +
+                " / " +
+                calendar.get(Calendar.YEAR);
     }
 
 }

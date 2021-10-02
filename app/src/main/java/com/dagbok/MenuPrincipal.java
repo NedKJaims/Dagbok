@@ -10,7 +10,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.dagbok.globals.Global;
 import com.google.firebase.auth.FirebaseAuth;
@@ -92,7 +91,12 @@ public class MenuPrincipal extends AppCompatActivity {
     }
 
     public void citas(View v) {
-        Toast.makeText(MenuPrincipal.this, "Se esta trabajando sobre esto, favor de esperar :)", Toast.LENGTH_LONG).show();
+        if(Global.usuario == null) {
+            usuarioNoConfigurado.show();
+        } else {
+            Intent citas = new Intent(MenuPrincipal.this, DoctorListaCitas.class);
+            startActivity(citas);
+        }
     }
 
 }

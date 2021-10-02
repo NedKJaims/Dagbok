@@ -122,7 +122,8 @@ public class DoctorEstatusConsultorio extends AppCompatActivity {
 
     private void establecerDatosDoctor(@Nullable Doctor doctor) {
         if(doctor != null) {
-            Picasso.get().load(doctor.getUrlFoto())
+            if(!doctor.getUrlFoto().isEmpty())
+                Picasso.get().load(doctor.getUrlFoto())
                     .placeholder(R.drawable.ic_no_disponible)
                     .resize(1080, 1080)
                     .onlyScaleDown()

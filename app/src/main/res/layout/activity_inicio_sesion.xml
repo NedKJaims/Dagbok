@@ -64,12 +64,11 @@
                         android:drawableEnd="@drawable/ic_email"
                         android:ems="10"
                         android:fontFamily="@font/coolvetica"
-                        android:hint="@string/correo_electronico"
                         android:importantForAutofill="no"
                         android:inputType="textEmailAddress"
                         android:textColor="@color/black"
                         app:drawableTint="@color/black"
-                        tools:ignore="LabelFor,TextContrastCheck,TextContrastCheck" />
+                        tools:ignore="LabelFor,TextContrastCheck,TextContrastCheck, SpeakableTextPresentCheck" />
                 </com.google.android.material.textfield.TextInputLayout>
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_height="wrap_content"
@@ -91,12 +90,11 @@
                         android:background="@drawable/shape_edit_text"
                         android:ems="10"
                         android:fontFamily="@font/coolvetica"
-                        android:hint="@string/contrasena"
                         android:importantForAutofill="no"
                         android:inputType="textPassword"
                         android:textColor="@color/black"
                         app:drawableTint="@color/black"
-                        tools:ignore="LabelFor,TextContrastCheck" />
+                        tools:ignore="LabelFor,TextContrastCheck, SpeakableTextPresentCheck" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <Button

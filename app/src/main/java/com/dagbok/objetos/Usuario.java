@@ -7,6 +7,7 @@ public class Usuario {
     private boolean esDoctor;
     private String nombre;
     private String apellidos;
+    private String correo;
     private String urlFoto;
     private Timestamp fechaNacimiento;
     private float estatura; //MTS
@@ -17,11 +18,12 @@ public class Usuario {
 
     }
 
-    public Usuario(String nombre, String apellidos, Timestamp fechaNacimiento, float estatura, float peso, int sexo) {
+    public Usuario(String nombre, String apellidos, String correo, Timestamp fechaNacimiento, float estatura, float peso, int sexo) {
         this.esDoctor = false;
         this.urlFoto = "";
         this.nombre = nombre;
         this.apellidos = apellidos;
+        this.correo = correo;
         this.fechaNacimiento = fechaNacimiento;
         this.estatura = estatura;
         this.peso = peso;
@@ -50,6 +52,14 @@ public class Usuario {
 
     public void setApellidos(String apellidos) {
         this.apellidos = apellidos;
+    }
+
+    public String getCorreo() {
+        return correo;
+    }
+
+    public void setCorreo(String correo) {
+        this.correo = correo;
     }
 
     public Timestamp getFechaNacimiento() {

@@ -20,6 +20,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.SetOptions;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class CambiarDatosDoctor extends AppCompatActivity {
@@ -58,12 +59,12 @@ public class CambiarDatosDoctor extends AppCompatActivity {
                 Doctor doc = (Doctor)Global.usuario;
 
                 if(doc.getEspecialidades() != null) {
-                    especialidadesLocal = doc.getEspecialidades();
+                    especialidadesLocal.addAll(doc.getEspecialidades());
                     establecerEspecialidades();
                 }
 
                 if(doc.getHorarios() != null) {
-                    horariosLocal = doc.getHorarios();
+                    horariosLocal.addAll(doc.getHorarios());
                     establecerHorarios();
                 }
 
@@ -74,6 +75,7 @@ public class CambiarDatosDoctor extends AppCompatActivity {
     }
 
     private void establecerEspecialidades() {
+        Collections.sort(especialidadesLocal);
         StringBuilder builder = new StringBuilder();
         for(String esp : especialidadesLocal) {
             builder.append(esp.concat("\n"));
@@ -82,6 +84,7 @@ public class CambiarDatosDoctor extends AppCompatActivity {
     }
 
     private void establecerHorarios() {
+        Collections.sort(horariosLocal);
         StringBuilder builder = new StringBuilder();
         for(String horario : horariosLocal) {
             builder.append(horario.concat("\n"));

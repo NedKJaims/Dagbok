@@ -53,7 +53,7 @@ public class Registro extends AppCompatActivity {
         fechaNacimiento = findViewById(R.id.registro_fecha_date);
         sexo = findViewById(R.id.registro_sexo_radiogroup);
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(Registro.this);
+        final AlertDialog.Builder builder = new AlertDialog.Builder(Registro.this);
         builder.setCancelable(false);
         builder.setView(R.layout.popup_cargando_datos);
         cargando = builder.create();
@@ -156,7 +156,7 @@ public class Registro extends AppCompatActivity {
             cargando.show();
             int sexoTipo = (sexo.getCheckedRadioButtonId() == R.id.hombre) ? 0 : 1;
             Usuario usuario = new Usuario(
-                    nombre.getText().toString(), apellidos.getText().toString(),
+                    nombre.getText().toString(), apellidos.getText().toString(), correoElectronico.getText().toString(),
                     fecha, Float.parseFloat(estatura.getText().toString()),
                     Float.parseFloat(peso.getText().toString()), sexoTipo
             );

@@ -136,8 +136,9 @@ public class CambiarDatos extends AppCompatActivity {
         if(!algunCampoVacio()) {
             cargando.show();
             int sex = sexo.getCheckedRadioButtonId() == R.id.hombre ? 0 : 1;
+            String correo = Global.firebaseUsuario.getEmail();
             if(Global.usuario == null) {
-                Global.usuario = new Usuario(nombre.getText().toString(), apellidos.getText().toString(),
+                Global.usuario = new Usuario(nombre.getText().toString(), apellidos.getText().toString(), correo,
                         fecha, Float.parseFloat(estatura.getText().toString()),
                         Float.parseFloat(peso.getText().toString()), sex);
             } else {
@@ -147,6 +148,7 @@ public class CambiarDatos extends AppCompatActivity {
                 Global.usuario.setEstatura(Float.parseFloat(estatura.getText().toString()));
                 Global.usuario.setPeso(Float.parseFloat(peso.getText().toString()));
                 Global.usuario.setSexo(sex);
+                Global.usuario.setCorreo(correo);
             }
             FirebaseFirestore.getInstance().document("Usuarios/".concat(Global.firebaseUsuario.getUid())).set(Global.usuario, SetOptions.merge()).addOnSuccessListener(unused -> {
                 setResult(Global.CAMBIO_DATOS);

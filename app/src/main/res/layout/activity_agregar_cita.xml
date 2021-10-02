@@ -6,12 +6,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/fondo"
-    tools:context=".CambiarDatos">
+    tools:context=".AgregarCita">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -28,13 +29,14 @@
                 android:contentDescription="@string/todo"
                 android:minHeight="48dp"
                 android:onClick="atras"
-                android:src="@drawable/ic_flecha_atras" />
+                android:src="@drawable/ic_flecha_atras"
+                tools:ignore="DuplicateSpeakableTextCheck" />
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="65dp"
                 android:layout_marginVertical="20dp"
-                android:text="@string/cambiar_datos"
+                android:text="@string/agregar_cita"
                 android:textSize="28sp"
                 android:textAlignment="center"
                 android:textStyle="bold"
@@ -44,9 +46,87 @@
         </LinearLayout>
 
         <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:hint="@string/enfermedad_ast"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="10dp"
+            app:boxBackgroundMode="filled"
+            app:boxStrokeWidth="0dp"
+            app:boxStrokeWidthFocused="0dp"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:background="@drawable/shape_edit_text"
+                android:ems="10"
+                android:fontFamily="@font/coolvetica"
+                android:importantForAutofill="no"
+                android:inputType="text"
+                android:textColor="@color/black"
+                app:drawableTint="@color/black"
+                tools:ignore="LabelFor,SpeakableTextPresentCheck" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:hint="@string/descripcion"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="10dp"
+            app:boxBackgroundMode="filled"
+            app:boxStrokeWidth="0dp"
+            app:boxStrokeWidthFocused="0dp"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape_edit_text"
+                android:ems="10"
+                android:fontFamily="@font/coolvetica"
+                android:importantForAutofill="no"
+                android:inputType="textMultiLine"
+                android:lines="3"
+                android:textColor="@color/black"
+                app:drawableTint="@color/black"
+                tools:ignore="LabelFor,SpeakableTextPresentCheck" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
-            android:hint="@string/nombre"
+            android:hint="@string/fecha_ast"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="10dp"
+            app:boxBackgroundMode="filled"
+            app:boxStrokeWidth="0dp"
+            app:boxStrokeWidthFocused="0dp"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+            <EditText
+                android:id="@+id/agregarCita_fecha_text"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:background="@drawable/shape_edit_text"
+                android:ems="10"
+                android:fontFamily="@font/coolvetica"
+                app:drawableTint="@color/black"
+                android:inputType="text"
+                android:textColor="@color/black"
+                android:focusable="false"
+                android:importantForAutofill="no"
+                android:onClick="establecerFecha"
+                tools:ignore="LabelFor, SpeakableTextPresentCheck" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:hint="@string/subcitas"
             android:layout_marginHorizontal="10dp"
             android:layout_marginTop="20dp"
             android:layout_marginBottom="10dp"
@@ -56,147 +136,131 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
             <EditText
-                android:id="@+id/cambiarDatos_nombre_text"
+                android:id="@+id/agregarCita_subFechas_text"
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
+                android:layout_height="wrap_content"
                 android:background="@drawable/shape_edit_text"
                 android:ems="10"
                 android:fontFamily="@font/coolvetica"
                 app:drawableTint="@color/black"
-                android:inputType="text"
+                android:inputType="textMultiLine"
+                android:minLines="3"
                 android:textColor="@color/black"
-                android:importantForAutofill="no"
-                tools:ignore="LabelFor, SpeakableTextPresentCheck" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_height="wrap_content"
-            android:layout_width="match_parent"
-            android:hint="@string/apellidos"
-            android:layout_marginHorizontal="10dp"
-            android:layout_marginVertical="10dp"
-            app:boxBackgroundMode="filled"
-            app:boxStrokeWidth="0dp"
-            app:boxStrokeWidthFocused="0dp"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-            <EditText
-                android:id="@+id/cambiarDatos_apellidos_text"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:background="@drawable/shape_edit_text"
-                android:ems="10"
-                android:fontFamily="@font/coolvetica"
-                app:drawableTint="@color/black"
-                android:inputType="text"
-                android:textColor="@color/black"
-                android:importantForAutofill="no"
-                tools:ignore="LabelFor, SpeakableTextPresentCheck" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_height="wrap_content"
-            android:layout_width="match_parent"
-            android:hint="@string/estatura"
-            android:layout_marginHorizontal="10dp"
-            android:layout_marginVertical="10dp"
-            app:boxBackgroundMode="filled"
-            app:boxStrokeWidth="0dp"
-            app:boxStrokeWidthFocused="0dp"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-            <EditText
-                android:id="@+id/cambiarDatos_estatura_number"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:background="@drawable/shape_edit_text"
-                android:ems="10"
-                android:fontFamily="@font/coolvetica"
-                android:inputType="numberDecimal"
-                app:drawableTint="@color/black"
-                android:textColor="@color/black"
-                android:importantForAutofill="no"
-                tools:ignore="LabelFor, SpeakableTextPresentCheck" />
-        </com.google.android.material.textfield.TextInputLayout>
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_height="wrap_content"
-            android:layout_width="match_parent"
-            android:hint="@string/peso"
-            android:layout_marginHorizontal="10dp"
-            android:layout_marginVertical="10dp"
-            app:boxBackgroundMode="filled"
-            app:boxStrokeWidth="0dp"
-            app:boxStrokeWidthFocused="0dp"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-            <EditText
-                android:id="@+id/cambiarDatos_peso_number"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:background="@drawable/shape_edit_text"
-                android:ems="10"
-                android:fontFamily="@font/coolvetica"
-                android:inputType="numberDecimal"
-                app:drawableTint="@color/black"
-                android:textColor="@color/black"
-                android:importantForAutofill="no"
-                tools:ignore="LabelFor, SpeakableTextPresentCheck" />
-        </com.google.android.material.textfield.TextInputLayout>
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_height="wrap_content"
-            android:layout_width="match_parent"
-            android:hint="@string/fecha_nacimiento"
-            android:layout_marginHorizontal="10dp"
-            android:layout_marginVertical="10dp"
-            app:boxBackgroundMode="filled"
-            app:boxStrokeWidth="0dp"
-            app:boxStrokeWidthFocused="0dp"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-            <EditText
-                android:id="@+id/cambiarDatos_fecha_date"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:background="@drawable/shape_edit_text"
-                android:ems="10"
-                android:fontFamily="@font/coolvetica"
-                android:inputType="datetime"
                 android:focusable="false"
-                app:drawableTint="@color/black"
-                android:drawableEnd="@drawable/ic_calendar"
-                android:textColor="@color/black"
+                android:clickable="false"
                 android:importantForAutofill="no"
-                android:onClick="establecerFechaCampo"
                 tools:ignore="LabelFor, SpeakableTextPresentCheck" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <TextView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:text="@string/sexo"
-            android:textColor="@color/black"
-            android:fontFamily="@font/coolvetica"/>
+            android:weightSum="2"
+            android:orientation="horizontal">
 
-        <RadioGroup
-            android:id="@+id/cambiarDatos_sexo_radiogroup"
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_marginHorizontal="10dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                android:layout_weight="1"
+                android:background="@drawable/shape_button"
+                android:fontFamily="@font/coolvetica"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:text="@string/agregar"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="24sp"
+                app:backgroundTint="@color/azul"
+                android:onClick="agregarSubFecha"
+                tools:ignore="ButtonStyle,DuplicateSpeakableTextCheck" />
+
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_marginHorizontal="10dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                android:layout_weight="1"
+                android:background="@drawable/shape_button"
+                android:fontFamily="@font/coolvetica"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:text="@string/remover"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="24sp"
+                app:backgroundTint="@color/rojo"
+                android:onClick="eliminarSubFecha"
+                tools:ignore="ButtonStyle,DuplicateSpeakableTextCheck" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_margin="10dp"
+            android:background="@color/gray"/>
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginHorizontal="10dp"
-            android:weightSum="2">
-            <RadioButton
-                android:id="@+id/hombre"
+            android:weightSum="6"
+            android:orientation="horizontal">
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:checked="true"
-                android:fontFamily="@font/coolvetica"
-                android:text="@string/hombre"/>
-            <RadioButton
-                android:id="@+id/mujer"
+                android:layout_gravity="center"
+                android:layout_weight="5"
+                android:hint="@string/correo_paciente_ast"
+                android:layout_marginHorizontal="10dp"
+                app:boxBackgroundMode="filled"
+                app:boxStrokeWidth="0dp"
+                app:boxStrokeWidthFocused="0dp"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+                <EditText
+                    android:id="@+id/agregarCita_correoPaciente_email"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:background="@drawable/shape_edit_text"
+                    android:ems="10"
+                    android:fontFamily="@font/coolvetica"
+                    android:importantForAutofill="no"
+                    android:inputType="textEmailAddress"
+                    android:textColor="@color/black"
+                    app:drawableTint="@color/black"
+                    tools:ignore="LabelFor,SpeakableTextPresentCheck" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <ImageButton
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
                 android:layout_weight="1"
+                android:contentDescription="@string/todo"
+                android:minHeight="48dp"
+                android:onClick="buscarUsuario"
+                android:src="@drawable/ic_buscar" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/agregarCita_paciente_padre_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
                 android:fontFamily="@font/coolvetica"
-                android:text="@string/mujer"/>
-        </RadioGroup>
+                android:text="@string/no_hay_usuario_cita"
+                android:textAlignment="center"/>
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_margin="10dp"
+            android:background="@color/gray"/>
 
         <Button
             android:layout_width="match_parent"
@@ -204,15 +268,14 @@
             android:layout_marginBottom="20dp"
             android:background="@drawable/shape_button"
             android:foreground="?android:attr/selectableItemBackground"
-            android:text="@string/aceptar"
+            android:text="@string/agregar"
             android:textColor="@color/black"
             android:fontFamily="@font/coolvetica"
             android:layout_marginTop="20dp"
             android:textSize="24sp"
             android:textAllCaps="false"
-            android:onClick="cambiarDatos"
+            android:onClick="agregarCita"
             android:layout_marginHorizontal="10dp" />
 
     </LinearLayout>
-
 </ScrollView>
