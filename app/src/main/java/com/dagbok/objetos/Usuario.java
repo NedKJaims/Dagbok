@@ -18,18 +18,6 @@ public class Usuario {
 
     }
 
-    public Usuario(String nombre, String apellidos, String correo, Timestamp fechaNacimiento, float estatura, float peso, int sexo) {
-        this.esDoctor = false;
-        this.urlFoto = "";
-        this.nombre = nombre;
-        this.apellidos = apellidos;
-        this.correo = correo;
-        this.fechaNacimiento = fechaNacimiento;
-        this.estatura = estatura;
-        this.peso = peso;
-        this.sexo = sexo;
-    }
-
     public boolean isEsDoctor() {
         return esDoctor;
     }

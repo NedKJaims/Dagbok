@@ -17,8 +17,8 @@ import com.dagbok.componentes.ComponenteTarjetaUsuario;
 import com.dagbok.globals.Global;
 import com.dagbok.objetos.Doctor;
 import com.dagbok.objetos.EstadoConsultorio;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.SetOptions;
 
 import java.util.Objects;
 
@@ -26,7 +26,7 @@ import javax.annotation.Nullable;
 
 public class EstatusConsultorio extends AppCompatActivity {
 
-    private DocumentReference estatus;
+
     private EstadoConsultorio estadoActual;
 
     private Button cambiarEstatus;
@@ -42,7 +42,6 @@ public class EstatusConsultorio extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_estatus_consultorio);
 
-        estatus = FirebaseFirestore.getInstance().document("Consultorio/Estado");
         estadoActual = null;
 
         cambiarEstatus = findViewById(R.id.estatusConsultorio_cambio_boton);
@@ -63,9 +62,10 @@ public class EstatusConsultorio extends AppCompatActivity {
         estatusTexto = findViewById(R.id.estatusConsultorio_estado_texto);
         doctorPadre = findViewById(R.id.estatusConsultorio_doctor_padre);
 
-        estatus.addSnapshotListener((value, error) -> {
+        FirebaseFirestore.getInstance().document("Consultorio/Estado").addSnapshotListener((value, error) -> {
             if(error == null) {
                 if(Objects.requireNonNull(value).exists()) {
+                    Toast.makeText(this, "Actualizando", Toast.LENGTH_SHORT).show();
                     EstadoConsultorio estado = Objects.requireNonNull(value.toObject(EstadoConsultorio.class));
                     String idDoctorPrevio = (estadoActual != null) ? estadoActual.getIdDoctor() : "";
                     estadoActual = estado;
@@ -141,6 +141,13 @@ public class EstatusConsultorio extends AppCompatActivity {
         }
     }
 
+    private void actualizarDatos(int estado, String id) {
+        EstadoConsultorio estadoConsultorio = new EstadoConsultorio();
+        estadoConsultorio.setEstatus(estado);
+        estadoConsultorio.setIdDoctor(id);
+        FirebaseFirestore.getInstance().document("Consultorio/Estado").set(estadoConsultorio, SetOptions.merge()).addOnFailureListener(e -> Toast.makeText(EstatusConsultorio.this, R.string.hubo_error, Toast.LENGTH_LONG).show());
+    }
+
     public void atras(View v) {
         onBackPressed();
     }
@@ -174,19 +181,19 @@ public class EstatusConsultorio extends AppCompatActivity {
                     nuevoEstado = Global.CONSULTORIO_CERRADO;
                     break;
             }
-            estatus.update("estatus", nuevoEstado).addOnFailureListener(e -> Toast.makeText(EstatusConsultorio.this, R.string.hubo_error, Toast.LENGTH_LONG).show());
+            actualizarDatos(nuevoEstado, estadoActual.getIdDoctor());
             return false;
         });
 
     }
 
     public void tomarTurno(View v) {
-        estatus.update("idDoctor",Global.firebaseUsuario.getUid(), "estatus", Global.CONSULTORIO_DISPONIBLE).addOnFailureListener(e -> Toast.makeText(EstatusConsultorio.this, R.string.hubo_error, Toast.LENGTH_LONG).show());
+        actualizarDatos(Global.CONSULTORIO_DISPONIBLE,Global.firebaseUsuario.getUid());
     }
 
     public void terminarTurno(View v) {
         if(estadoActual.getIdDoctor().matches(Global.firebaseUsuario.getUid())) {
-            estatus.update("idDoctor", "", "estatus", Global.CONSULTORIO_CERRADO).addOnFailureListener(e -> Toast.makeText(EstatusConsultorio.this, R.string.hubo_error, Toast.LENGTH_LONG).show());
+            actualizarDatos(Global.CONSULTORIO_CERRADO, "");
         } else {
             Toast.makeText(EstatusConsultorio.this, R.string.no_puede_terminar_turno_no_suyo, Toast.LENGTH_LONG).show();
         }

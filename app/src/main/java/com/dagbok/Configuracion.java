@@ -214,7 +214,8 @@ public class Configuracion extends AppCompatActivity {
                         String keyDoc = documentSnapshot.get("soyDoctor", String.class);
                         if(keyDoc != null) {
                             if (keyDoc.matches(texto)) {
-                                Doctor doctor = new Doctor(Global.usuario);
+                                Doctor doctor = new Doctor();
+                                doctor.establecerUsuario(Global.usuario);
                                 FirebaseFirestore.getInstance().document("Usuarios/".concat(Global.firebaseUsuario.getUid())).set(doctor, SetOptions.merge()).addOnSuccessListener(unused -> {
                                     Global.usuario = doctor;
                                     cargando.dismiss();

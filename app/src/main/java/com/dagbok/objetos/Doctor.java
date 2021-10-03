@@ -11,7 +11,7 @@ public class Doctor extends Usuario {
 
     }
 
-    public Doctor(Usuario usuario) {
+    public void establecerUsuario(Usuario usuario) {
         setEsDoctor(true);
         setNombre(usuario.getNombre());
         setApellidos(usuario.getApellidos());
@@ -19,11 +19,6 @@ public class Doctor extends Usuario {
         setPeso(usuario.getPeso());
         setFechaNacimiento(usuario.getFechaNacimiento());
         setUrlFoto(usuario.getUrlFoto());
-    }
-
-    public Doctor(List<String> especialidades, List<String> horarios) {
-        this.especialidades = especialidades;
-        this.horarios = horarios;
     }
 
     public List<String> getEspecialidades() {

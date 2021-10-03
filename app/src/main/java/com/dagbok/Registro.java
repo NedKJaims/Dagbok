@@ -107,6 +107,21 @@ public class Registro extends AppCompatActivity {
     private void vaciarErrorPadre(EditText editText) {
         ((TextInputLayout)editText.getParent().getParent()).setError("");
     }
+
+    @NonNull
+    private Usuario crearUsuario() {
+        Usuario usuario = new Usuario();
+        usuario.setEsDoctor(false);
+        usuario.setNombre(nombre.getText().toString());
+        usuario.setApellidos(apellidos.getText().toString());
+        usuario.setCorreo(correoElectronico.getText().toString());
+        usuario.setFechaNacimiento(fecha);
+        usuario.setEstatura(Float.parseFloat(estatura.getText().toString()));
+        usuario.setPeso(Float.parseFloat(peso.getText().toString()));
+        usuario.setSexo((sexo.getCheckedRadioButtonId() == R.id.hombre) ? 0 : 1);
+        usuario.setUrlFoto("");
+        return usuario;
+    }
     private void crearMensajeRegistroExitoso() {
         AlertDialog.Builder builder = new AlertDialog.Builder(Registro.this);
         builder.setTitle(R.string.registro_exitoso);
@@ -154,13 +169,7 @@ public class Registro extends AppCompatActivity {
     public void registrar(View v) {
         if (!algunCampoVacio()) {
             cargando.show();
-            int sexoTipo = (sexo.getCheckedRadioButtonId() == R.id.hombre) ? 0 : 1;
-            Usuario usuario = new Usuario(
-                    nombre.getText().toString(), apellidos.getText().toString(), correoElectronico.getText().toString(),
-                    fecha, Float.parseFloat(estatura.getText().toString()),
-                    Float.parseFloat(peso.getText().toString()), sexoTipo
-            );
-
+            Usuario usuario = crearUsuario();
             FirebaseAuth.getInstance().createUserWithEmailAndPassword(correoElectronico.getText().toString(), contrasena.getText().toString()).addOnCompleteListener(task -> {
                 if (task.isSuccessful()) {
                     String id = Objects.requireNonNull(Objects.requireNonNull(task.getResult()).getUser()).getUid();

@@ -114,6 +114,7 @@
                 android:background="@drawable/shape_edit_text"
                 android:ems="10"
                 android:fontFamily="@font/coolvetica"
+                android:drawableEnd="@drawable/ic_calendar"
                 app:drawableTint="@color/black"
                 android:inputType="text"
                 android:textColor="@color/black"
