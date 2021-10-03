@@ -11,6 +11,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Dagbok">
         <activity
+            android:name=".EstatusConsultorio"
+            android:exported="true" />
+        <activity
             android:name=".DoctorInformacionCita"
             android:exported="true" />
         <activity
@@ -21,12 +24,6 @@
             android:exported="true" />
         <activity
             android:name=".PacienteListaCitas"
-            android:exported="true" />
-        <activity
-            android:name=".DoctorEstatusConsultorio"
-            android:exported="true" />
-        <activity
-            android:name=".PacienteEstatusConsultorio"
             android:exported="true" />
         <activity
             android:name=".CambiarDatosDoctor"

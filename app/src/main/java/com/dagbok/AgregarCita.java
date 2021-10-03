@@ -211,7 +211,8 @@ public class AgregarCita extends AppCompatActivity {
                 //indice 0 ya que no existen correos repetidos, entonces solo habra un usuario en la lista
                 Usuario paciente = queryDocumentSnapshots.getDocuments().get(0).toObject(Usuario.class);
                 Objects.requireNonNull(paciente);
-                ComponenteTarjetaUsuario tarjetaUsuario = new ComponenteTarjetaUsuario(AgregarCita.this, paciente);
+                int tipoTarjeta = ComponenteTarjetaUsuario.TARJETA_SENCILLA_USUARIO;
+                ComponenteTarjetaUsuario tarjetaUsuario = new ComponenteTarjetaUsuario(AgregarCita.this, tipoTarjeta, paciente);
                 LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
                 int margen = (int)(10 * getResources().getDisplayMetrics().density);
                 params.setMargins(margen,margen,margen,margen);

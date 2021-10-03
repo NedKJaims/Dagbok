@@ -83,9 +83,7 @@ public class MenuPrincipal extends AppCompatActivity {
         if(Global.usuario == null) {
             usuarioNoConfigurado.show();
         } else {
-            boolean isDoctor = Global.usuario.isEsDoctor();
-            Intent estatus = new Intent(MenuPrincipal.this,
-                    (isDoctor) ? DoctorEstatusConsultorio.class : PacienteEstatusConsultorio.class);
+            Intent estatus = new Intent(MenuPrincipal.this, EstatusConsultorio.class);
             startActivity(estatus);
         }
     }

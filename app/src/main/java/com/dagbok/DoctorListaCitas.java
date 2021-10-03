@@ -31,8 +31,8 @@ import java.util.Objects;
 
 public class DoctorListaCitas extends AppCompatActivity {
 
-    private final byte NUEVAS_ACTIVAS = 0;
-    private final byte VIEJAS_NO_ACTIVAS = 1;
+    private static final byte NUEVAS_ACTIVAS = 0;
+    private static final byte VIEJAS_NO_ACTIVAS = 1;
 
     private ActivityResultLauncher<Intent> resultLauncher;
 

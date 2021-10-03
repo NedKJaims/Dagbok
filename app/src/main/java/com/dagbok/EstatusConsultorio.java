@@ -8,22 +8,23 @@ import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.dagbok.componentes.ComponenteTarjetaUsuario;
 import com.dagbok.globals.Global;
 import com.dagbok.objetos.Doctor;
 import com.dagbok.objetos.EstadoConsultorio;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.squareup.picasso.Picasso;
 
 import java.util.Objects;
 
 import javax.annotation.Nullable;
 
-public class DoctorEstatusConsultorio extends AppCompatActivity {
+public class EstatusConsultorio extends AppCompatActivity {
 
     private DocumentReference estatus;
     private EstadoConsultorio estadoActual;
@@ -34,10 +35,7 @@ public class DoctorEstatusConsultorio extends AppCompatActivity {
 
     private ImageView estatusFoto;
     private TextView estatusTexto;
-    private ImageView fotoDoctor;
-    private TextView nombreDoctor;
-    private TextView especialidadesDoctor;
-    private TextView horariosDoctor;
+    private LinearLayout doctorPadre;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,50 +45,61 @@ public class DoctorEstatusConsultorio extends AppCompatActivity {
         estatus = FirebaseFirestore.getInstance().document("Consultorio/Estado");
         estadoActual = null;
 
-        cambiarEstatus = findViewById(R.id.doctorEstatusConsultorio_cambio_boton);
-        tomarTurno = findViewById(R.id.doctorEstatusConsultorio_tomar_boton);
-        terminarTurno = findViewById(R.id.doctorEstatusConsultorio_terminar_boton);
+        cambiarEstatus = findViewById(R.id.estatusConsultorio_cambio_boton);
+        tomarTurno = findViewById(R.id.estatusConsultorio_tomar_boton);
+        terminarTurno = findViewById(R.id.estatusConsultorio_terminar_boton);
+
+        if(!Global.usuario.isEsDoctor()) {
+            LinearLayout padre = (LinearLayout) cambiarEstatus.getParent();
+            padre.removeView(cambiarEstatus);
+            padre.removeView(tomarTurno);
+            padre.removeView(terminarTurno);
+            cambiarEstatus = null;
+            tomarTurno = null;
+            terminarTurno = null;
+        }
 
         estatusFoto = findViewById(R.id.estatusConsultorio_estado_foto);
         estatusTexto = findViewById(R.id.estatusConsultorio_estado_texto);
-        fotoDoctor = findViewById(R.id.estatusConsultorio_doctor_foto);
-        nombreDoctor = findViewById(R.id.estatusConsultorio_doctorNombre_texto);
-        especialidadesDoctor = findViewById(R.id.estatusConsultorio_doctorEspecialidades_texto);
-        horariosDoctor = findViewById(R.id.estatusConsultorio_doctorHorarios_texto);
+        doctorPadre = findViewById(R.id.estatusConsultorio_doctor_padre);
 
         estatus.addSnapshotListener((value, error) -> {
             if(error == null) {
                 if(Objects.requireNonNull(value).exists()) {
                     EstadoConsultorio estado = Objects.requireNonNull(value.toObject(EstadoConsultorio.class));
+                    String idDoctorPrevio = (estadoActual != null) ? estadoActual.getIdDoctor() : "";
                     estadoActual = estado;
                     establecerEstatusConsultorio(estado.getEstatus());
-                    if(estado.getIdDoctor().matches(Global.firebaseUsuario.getUid())) {
-                        Doctor doctor = (Doctor) Global.usuario;
-                        establecerDatosDoctor(doctor);
-                        actualizarBotones(false, true, true);
-                    } else {
-                        if(!estado.getIdDoctor().isEmpty()) {
-                            FirebaseFirestore.getInstance().document("Usuarios/".concat(estado.getIdDoctor())).get().addOnSuccessListener(documentSnapshot -> {
-                                if(documentSnapshot.exists()) {
-                                    Doctor doctor = Objects.requireNonNull(documentSnapshot.toObject(Doctor.class));
-                                    establecerDatosDoctor(doctor);
-                                    actualizarBotones(true, false, false);
-                                }
-                            }).addOnFailureListener(e -> {
-                                Toast.makeText(DoctorEstatusConsultorio.this, R.string.hubo_error, Toast.LENGTH_LONG).show();
-                                finish();
-                            });
+                    boolean ambosIdsVacios = estadoActual.getIdDoctor().isEmpty() && idDoctorPrevio.isEmpty();
+                    if(!idDoctorPrevio.matches(estadoActual.getIdDoctor()) || ambosIdsVacios) {
+                        if (estado.getIdDoctor().matches(Global.firebaseUsuario.getUid())) {
+                            Doctor doctor = (Doctor) Global.usuario;
+                            establecerDatosDoctor(doctor);
+                            actualizarBotones(false, true, true);
                         } else {
-                            actualizarBotones(true, false, false);
-                            establecerDatosDoctor(null);
+                            if (!estado.getIdDoctor().isEmpty()) {
+                                FirebaseFirestore.getInstance().document("Usuarios/".concat(estado.getIdDoctor())).get().addOnSuccessListener(documentSnapshot -> {
+                                    if (documentSnapshot.exists()) {
+                                        Doctor doctor = Objects.requireNonNull(documentSnapshot.toObject(Doctor.class));
+                                        establecerDatosDoctor(doctor);
+                                        actualizarBotones(true, false, false);
+                                    }
+                                }).addOnFailureListener(e -> {
+                                    Toast.makeText(EstatusConsultorio.this, R.string.hubo_error, Toast.LENGTH_LONG).show();
+                                    finish();
+                                });
+                            } else {
+                                actualizarBotones(true, false, false);
+                                establecerDatosDoctor(null);
+                            }
                         }
                     }
                 } else {
-                    Toast.makeText(DoctorEstatusConsultorio.this, R.string.hubo_error, Toast.LENGTH_LONG).show();
+                    Toast.makeText(EstatusConsultorio.this, R.string.hubo_error, Toast.LENGTH_LONG).show();
                     finish();
                 }
             } else {
-                Toast.makeText(DoctorEstatusConsultorio.this, R.string.hubo_error, Toast.LENGTH_LONG).show();
+                Toast.makeText(EstatusConsultorio.this, R.string.hubo_error, Toast.LENGTH_LONG).show();
                 finish();
             }
         });
@@ -115,37 +124,21 @@ public class DoctorEstatusConsultorio extends AppCompatActivity {
     }
 
     private void actualizarBotones(boolean tomarTurnoEnable, boolean cambiarEstatusEnable, boolean terminarTurnoEnable) {
-        tomarTurno.setEnabled(tomarTurnoEnable);
-        cambiarEstatus.setEnabled(cambiarEstatusEnable);
-        terminarTurno.setEnabled(terminarTurnoEnable);
+        if(Global.usuario.isEsDoctor()) {
+            tomarTurno.setEnabled(tomarTurnoEnable);
+            cambiarEstatus.setEnabled(cambiarEstatusEnable);
+            terminarTurno.setEnabled(terminarTurnoEnable);
+        }
     }
 
     private void establecerDatosDoctor(@Nullable Doctor doctor) {
         if(doctor != null) {
-            if(!doctor.getUrlFoto().isEmpty())
-                Picasso.get().load(doctor.getUrlFoto())
-                    .placeholder(R.drawable.ic_no_disponible)
-                    .resize(1080, 1080)
-                    .onlyScaleDown()
-                    .into(fotoDoctor);
-            nombreDoctor.setText(doctor.getNombre().concat(doctor.getApellidos()));
-            StringBuilder especialidades = new StringBuilder();
-            for(String especialidad : doctor.getEspecialidades()) {
-                especialidades.append(especialidad.concat("\n"));
-            }
-            especialidadesDoctor.setText(especialidades);
-            StringBuilder horarios = new StringBuilder();
-            for(String horario : doctor.getHorarios()) {
-                horarios.append(horario.concat("\n"));
-            }
-            horariosDoctor.setText(horarios);
+            int tipoTarjeta = ComponenteTarjetaUsuario.TARJETA_ESTATUS_CONSULTORIO_DOCTOR;
+            ComponenteTarjetaUsuario doc = new ComponenteTarjetaUsuario(EstatusConsultorio.this, tipoTarjeta, doctor);
+            doctorPadre.addView(doc);
         } else {
-            nombreDoctor.setText("");
-            fotoDoctor.setImageResource(R.drawable.ic_no_disponible);
-            especialidadesDoctor.setText("");
-            horariosDoctor.setText("");
+            doctorPadre.removeAllViews();
         }
-
     }
 
     public void atras(View v) {
@@ -154,7 +147,7 @@ public class DoctorEstatusConsultorio extends AppCompatActivity {
 
     @SuppressLint("NonConstantResourceId")
     public void cambiarEstatus(View v) {
-        PopupMenu menu = new PopupMenu(DoctorEstatusConsultorio.this, v, Gravity.CENTER);
+        PopupMenu menu = new PopupMenu(EstatusConsultorio.this, v, Gravity.CENTER);
         menu.getMenuInflater().inflate(R.menu.menu_estado_consultorio, menu.getMenu());
         menu.show();
         switch (estadoActual.getEstatus()) {
@@ -181,22 +174,21 @@ public class DoctorEstatusConsultorio extends AppCompatActivity {
                     nuevoEstado = Global.CONSULTORIO_CERRADO;
                     break;
             }
-            estatus.update("estatus", nuevoEstado).addOnFailureListener(e -> Toast.makeText(DoctorEstatusConsultorio.this, R.string.hubo_error, Toast.LENGTH_LONG).show());
+            estatus.update("estatus", nuevoEstado).addOnFailureListener(e -> Toast.makeText(EstatusConsultorio.this, R.string.hubo_error, Toast.LENGTH_LONG).show());
             return false;
         });
 
     }
 
     public void tomarTurno(View v) {
-        estatus.update("idDoctor",Global.firebaseUsuario.getUid(), "estatus", Global.CONSULTORIO_DISPONIBLE).addOnFailureListener(e -> Toast.makeText(DoctorEstatusConsultorio.this, R.string.hubo_error, Toast.LENGTH_LONG).show());
+        estatus.update("idDoctor",Global.firebaseUsuario.getUid(), "estatus", Global.CONSULTORIO_DISPONIBLE).addOnFailureListener(e -> Toast.makeText(EstatusConsultorio.this, R.string.hubo_error, Toast.LENGTH_LONG).show());
     }
 
     public void terminarTurno(View v) {
         if(estadoActual.getIdDoctor().matches(Global.firebaseUsuario.getUid())) {
-            estatus.update("idDoctor", "", "estatus", Global.CONSULTORIO_CERRADO).addOnFailureListener(e -> Toast.makeText(DoctorEstatusConsultorio.this, R.string.hubo_error, Toast.LENGTH_LONG).show());
+            estatus.update("idDoctor", "", "estatus", Global.CONSULTORIO_CERRADO).addOnFailureListener(e -> Toast.makeText(EstatusConsultorio.this, R.string.hubo_error, Toast.LENGTH_LONG).show());
         } else {
-            Toast.makeText(DoctorEstatusConsultorio.this, R.string.no_puede_terminar_turno_no_suyo, Toast.LENGTH_LONG).show();
+            Toast.makeText(EstatusConsultorio.this, R.string.no_puede_terminar_turno_no_suyo, Toast.LENGTH_LONG).show();
         }
     }
-
 }
