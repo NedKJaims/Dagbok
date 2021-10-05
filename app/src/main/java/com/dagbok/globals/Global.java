@@ -1,6 +1,9 @@
 package com.dagbok.globals;
 
 import android.content.Context;
+import android.os.Build;
+import android.text.Html;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -27,6 +30,7 @@ public class Global {
     public static final int CAMBIO_DATOS = 100;
     public static final int ELIMINAR_CUENTA = 101;
     public static final int AGREGO_CITA = 102;
+    public static final int MODIFICO_CITA = 103;
 
     public static String crearFormatoHora(Context activity, int hora, int minutos) {
         String result;
@@ -50,6 +54,15 @@ public class Global {
                 activity.getResources().getStringArray(R.array.meses)[calendar.get(Calendar.MONTH)] +
                 " / " +
                 calendar.get(Calendar.YEAR);
+    }
+
+    public static void establecerFormatoColonTextView(TextView text, CharSequence tag, CharSequence contenido) {
+        String hint = "<b>" + tag + " </b>" + contenido;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            text.setText(Html.fromHtml(hint, Html.FROM_HTML_MODE_COMPACT));
+        } else {
+            text.setText(Html.fromHtml(hint));
+        }
     }
 
 }

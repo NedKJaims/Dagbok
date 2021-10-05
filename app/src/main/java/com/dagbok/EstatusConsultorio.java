@@ -65,7 +65,6 @@ public class EstatusConsultorio extends AppCompatActivity {
         FirebaseFirestore.getInstance().document("Consultorio/Estado").addSnapshotListener((value, error) -> {
             if(error == null) {
                 if(Objects.requireNonNull(value).exists()) {
-                    Toast.makeText(this, "Actualizando", Toast.LENGTH_SHORT).show();
                     EstadoConsultorio estado = Objects.requireNonNull(value.toObject(EstadoConsultorio.class));
                     String idDoctorPrevio = (estadoActual != null) ? estadoActual.getIdDoctor() : "";
                     estadoActual = estado;

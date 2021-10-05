@@ -15,35 +15,13 @@ public class Cita implements Parcelable {
     private String idReceta;
     private Timestamp fecha;
     private List<Timestamp> proximasFechas;
-    /*private String enfermedad;
+    private String enfermedad;
     private String descripcion;
-    private String nombrePaciente;*/
+    private String nombrePaciente;
 
     public Cita() {
 
     }
-
-    public Cita(String idDoctor, String idPaciente, Timestamp fecha, List<Timestamp> proximasFechas) {
-        this.idDoctor = idDoctor;
-        this.idPaciente = idPaciente;
-        this.fecha = fecha;
-        this.activa = true;
-        this.idReceta = "";
-        this.proximasFechas = proximasFechas;
-    }
-    /*
-    public Cita(String idDoctor, String idPaciente, String enfermedad, String descripcion, String nombrePaciente, Timestamp fecha, List<Timestamp> proximasFechas) {
-        this.idDoctor = idDoctor;
-        this.idPaciente = idPaciente;
-        this.fecha = fecha;
-        this.activa = true;
-        this.idReceta = "";
-        this.proximasFechas = proximasFechas;
-        this.enfermedad = enfermedad;
-        this.descripcion = descripcion;
-        this.nombrePaciente = nombrePaciente;
-    }
-    */
 
     protected Cita(Parcel in) {
         activa = in.readByte() != 0;
@@ -52,6 +30,27 @@ public class Cita implements Parcelable {
         idReceta = in.readString();
         fecha = in.readParcelable(Timestamp.class.getClassLoader());
         proximasFechas = in.createTypedArrayList(Timestamp.CREATOR);
+        enfermedad = in.readString();
+        descripcion = in.readString();
+        nombrePaciente = in.readString();
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeByte((byte) (activa ? 1 : 0));
+        dest.writeString(idDoctor);
+        dest.writeString(idPaciente);
+        dest.writeString(idReceta);
+        dest.writeParcelable(fecha, flags);
+        dest.writeTypedList(proximasFechas);
+        dest.writeString(enfermedad);
+        dest.writeString(descripcion);
+        dest.writeString(nombrePaciente);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
     }
 
     public static final Creator<Cita> CREATOR = new Creator<Cita>() {
@@ -71,7 +70,7 @@ public class Cita implements Parcelable {
     }
 
     public void setActiva(boolean activa) {
-        activa = activa;
+        this.activa = activa;
     }
 
     public String getIdDoctor() {
@@ -114,18 +113,29 @@ public class Cita implements Parcelable {
         this.proximasFechas = proximasFechas;
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
+    public String getEnfermedad() {
+        return enfermedad;
     }
 
-    @Override
-    public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeByte((byte) (activa ? 1 : 0));
-        parcel.writeString(idDoctor);
-        parcel.writeString(idPaciente);
-        parcel.writeString(idReceta);
-        parcel.writeParcelable(fecha, i);
-        parcel.writeTypedList(proximasFechas);
+    public void setEnfermedad(String enfermedad) {
+        this.enfermedad = enfermedad;
     }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    public String getNombrePaciente() {
+        return nombrePaciente;
+    }
+
+    public void setNombrePaciente(String nombrePaciente) {
+        this.nombrePaciente = nombrePaciente;
+    }
+
+
 }

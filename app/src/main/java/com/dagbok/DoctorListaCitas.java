@@ -10,6 +10,7 @@ import androidx.core.content.res.ResourcesCompat;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.res.ColorStateList;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.TypedValue;
 import android.view.View;
@@ -56,9 +57,18 @@ public class DoctorListaCitas extends AppCompatActivity {
 
         resultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
             if(result.getResultCode() == Global.AGREGO_CITA) {
+
+                Objects.requireNonNull(result.getData());
                 Intent informacionCita = new Intent(DoctorListaCitas.this, DoctorInformacionCita.class);
-                informacionCita.putExtra("cita", Objects.requireNonNull(result.getData()).getSerializableExtra("cita"));
-                startActivity(informacionCita);
+                String id = result.getData().getStringExtra("idCita");
+                Cita cita = result.getData().getParcelableExtra("cita");
+                informacionCita.putExtra("idCita", id);
+                informacionCita.putExtra("cita", cita);
+                resultLauncher.launch(informacionCita);
+
+                ultimaCitaCapturada = null;
+                cargarListaCitas();
+            } else if(result.getResultCode() == Global.MODIFICO_CITA) {
                 ultimaCitaCapturada = null;
                 cargarListaCitas();
             }
@@ -79,11 +89,14 @@ public class DoctorListaCitas extends AppCompatActivity {
         return params;
     }
     @NonNull
-    private TextView crearTexto(CharSequence texto, int colorTexto, int alignment) {
+    private TextView crearTexto(CharSequence texto, int colorTexto, int alignment, boolean bold) {
         LinearLayout.LayoutParams params = crearParametros();
         TextView res = new TextView(DoctorListaCitas.this);
         res.setText(texto);
-        res.setTypeface(ResourcesCompat.getFont(DoctorListaCitas.this, R.font.coolvetica));
+        if(bold)
+            res.setTypeface(ResourcesCompat.getFont(DoctorListaCitas.this, R.font.coolvetica), Typeface.BOLD);
+        else
+            res.setTypeface(ResourcesCompat.getFont(DoctorListaCitas.this, R.font.coolvetica));
         if(colorTexto != -1)
             res.setTextColor(getColor(colorTexto));
         if(alignment != -1)
@@ -103,10 +116,10 @@ public class DoctorListaCitas extends AppCompatActivity {
     }
     @SuppressLint("UseCompatLoadingForDrawables")
     @NonNull
-    public CardView crearBotonVerMas() {
+    private CardView crearBotonVerMas() {
         LinearLayout.LayoutParams params = crearParametros();
 
-        TextView res = crearTexto(getText(R.string.ver_mas),R.color.white,TextView.TEXT_ALIGNMENT_CENTER);
+        TextView res = crearTexto(getText(R.string.ver_mas),R.color.white,TextView.TEXT_ALIGNMENT_CENTER, false);
 
         CardView view = new CardView(DoctorListaCitas.this);
         view.setCardBackgroundColor(ColorStateList.valueOf(getColor(R.color.verde_primario)));
@@ -146,11 +159,12 @@ public class DoctorListaCitas extends AppCompatActivity {
             if(!queryDocumentSnapshots.isEmpty()) {
                 if(ultimaCitaCapturada == null){
                     CharSequence textoDireccion = (sentidoCarga == NUEVAS_ACTIVAS) ? getText(R.string.nuevas_activas) : getText(R.string.viejas_no_activas);
-                    citasPadre.addView(crearTexto(textoDireccion, R.color.black, -1));
+                    citasPadre.addView(crearTexto(textoDireccion, R.color.black, -1, true));
                     citasPadre.addView(crearSeparador());
                 }
                 for(int i = 0; i < queryDocumentSnapshots.size(); i++) {
                     Cita citaLocal = queryDocumentSnapshots.getDocuments().get(i).toObject(Cita.class);
+                    String id = queryDocumentSnapshots.getDocuments().get(i).getId();
 
                     ComponenteCita componenteCita = new ComponenteCita(DoctorListaCitas.this, Objects.requireNonNull(citaLocal));
                     LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -159,8 +173,9 @@ public class DoctorListaCitas extends AppCompatActivity {
 
                     componenteCita.setOnClickListener(view -> {
                         Intent informacionCita = new Intent(DoctorListaCitas.this, DoctorInformacionCita.class);
+                        informacionCita.putExtra("idCita", id);
                         informacionCita.putExtra("cita", citaLocal);
-                        startActivity(informacionCita);
+                        resultLauncher.launch(informacionCita);
                     });
 
                     citasPadre.addView(componenteCita, params);
@@ -169,11 +184,11 @@ public class DoctorListaCitas extends AppCompatActivity {
                 if(queryDocumentSnapshots.size() == 10)
                     citasPadre.addView(crearBotonVerMas());
             } else {
-                citasPadre.addView(crearTexto(getText(R.string.no_hay_citas), -1, TextView.TEXT_ALIGNMENT_CENTER));
+                citasPadre.addView(crearTexto(getText(R.string.no_hay_citas), -1, TextView.TEXT_ALIGNMENT_CENTER, true));
             }
         }).addOnFailureListener(e -> {
             Toast.makeText(DoctorListaCitas.this, R.string.no_hay_conexion, Toast.LENGTH_LONG).show();
-            citasPadre.addView(crearTexto(getText(R.string.no_hay_citas), -1, TextView.TEXT_ALIGNMENT_CENTER));
+            citasPadre.addView(crearTexto(getText(R.string.no_hay_citas), -1, TextView.TEXT_ALIGNMENT_CENTER, true));
         });
 
 

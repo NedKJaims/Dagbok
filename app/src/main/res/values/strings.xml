@@ -83,6 +83,7 @@
     <string name="no_hay_receta">No hay receta</string>
     <string name="editar_cita">Editar Cita</string>
     <string name="descripcion_colon">Descripción:</string>
+    <string name="establecer_proxima_fecha">Establecer proxima fecha</string>
 
     <!-- ERROR FIELDS -->
     <string name="configuracion_usuario">Configurar usuario</string>
@@ -139,6 +140,7 @@
     <string name="remover_horario">Remover Horario</string>
     <string name="seleccione_dia">Seleccione el día</string>
     <string name="estatus">Estatus</string>
+    <string name="estatus_colon">Estatus:</string>
     <string name="doctor">Doctor</string>
     <string name="descripcion">Descripción</string>
     <string name="paciente">Paciente</string>
@@ -149,6 +151,8 @@
     <string name="mujer">Mujer</string>
     <string name="enfermedad_colon">Enfermedad:</string>
     <string name="paciente_colon">Paciente:</string>
+    <string name="tratamiento">Tratamiento</string>
+    <string name="finalizado">Finalizado</string>
 
     <string-array name="meses">
         <item>Enero</item>

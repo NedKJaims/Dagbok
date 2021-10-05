@@ -19,42 +19,49 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/domingo"
+                android:fontFamily="@font/coolvetica"
                 android:textColor="@color/black"/>
             <RadioButton
                 android:id="@+id/lunes"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/lunes"
+                android:fontFamily="@font/coolvetica"
                 android:textColor="@color/black"/>
             <RadioButton
                 android:id="@+id/martes"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/martes"
+                android:fontFamily="@font/coolvetica"
                 android:textColor="@color/black"/>
             <RadioButton
                 android:id="@+id/miercoles"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/miercoles"
+                android:fontFamily="@font/coolvetica"
                 android:textColor="@color/black"/>
             <RadioButton
                 android:id="@+id/jueves"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/jueves"
+                android:fontFamily="@font/coolvetica"
                 android:textColor="@color/black"/>
             <RadioButton
                 android:id="@+id/viernes"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/viernes"
+                android:fontFamily="@font/coolvetica"
                 android:textColor="@color/black"/>
             <RadioButton
                 android:id="@+id/sabado"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/sabado"
+                android:fontFamily="@font/coolvetica"
                 android:textColor="@color/black"/>
         </RadioGroup>
 
@@ -66,6 +73,7 @@
             android:inputType="datetime"
             android:textColor="@color/black"
             android:hint="@string/desde"
+            android:fontFamily="@font/coolvetica"
             tools:ignore="Autofill,LabelFor"/>
 
         <EditText
@@ -77,6 +85,7 @@
             android:inputType="datetime"
             android:textColor="@color/black"
             android:hint="@string/hasta"
+            android:fontFamily="@font/coolvetica"
             tools:ignore="Autofill,LabelFor" />
 
     </LinearLayout>

@@ -21,14 +21,22 @@ public class ComponenteCita extends LinearLayout {
     public ComponenteCita(Context context, Cita cita) {
         super(context);
         inflate(context, R.layout.componente_cita, this);
+
         TextView fecha = findViewById(R.id.componenteCita_fecha_text);
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(cita.getFecha().toDate());
-        fecha.setText(context.getString(R.string.fecha_colon).concat(" ").concat(Global.crearFormatoTiempo(context,calendar)));
+        Global.establecerFormatoColonTextView(fecha, context.getString(R.string.fecha_colon), Global.crearFormatoTiempo(context,calendar));
+
         TextView enfemedad = findViewById(R.id.componenteCita_enfermedad_text);
-        enfemedad.setText(context.getString(R.string.enfermedad_colon).concat(" ").concat(" Enfermedad"));
+        Global.establecerFormatoColonTextView(enfemedad, context.getString(R.string.enfermedad_colon), cita.getEnfermedad());
+
+        TextView estatus = findViewById(R.id.componenteCita_estatus_text);
+        Global.establecerFormatoColonTextView(estatus, context.getString(R.string.estatus), (cita.isActiva()) ? context.getString(R.string.tratamiento)
+                :  context.getString(R.string.finalizado));
+
         TextView paciente = findViewById(R.id.componenteCita_paciente_text);
-        paciente.setText(context.getString(R.string.paciente_colon).concat(" ").concat("Paciente"));
+        Global.establecerFormatoColonTextView(paciente, context.getString(R.string.paciente_colon), cita.getNombrePaciente());
 
     }
+
 }

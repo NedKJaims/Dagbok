@@ -56,6 +56,7 @@
             android:textSize="20sp"/>
 
         <TextView
+            android:id="@+id/informacion_cita_enfermedad_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginVertical="10dp"
@@ -66,6 +67,7 @@
             android:textSize="20sp"/>
 
         <TextView
+            android:id="@+id/informacion_cita_descripcion_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginVertical="10dp"
@@ -93,7 +95,6 @@
             android:layout_marginVertical="10dp"
             app:cardCornerRadius="10dp">
             <LinearLayout
-                android:id="@+id/informacion_cita_proxima_fechas_padre"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
@@ -103,16 +104,17 @@
                     android:layout_margin="10dp"
                     android:fontFamily="@font/coolvetica"
                     android:text="@string/proximas_citas"
-                    android:textSize="16sp"
+                    android:textSize="20sp"
                     android:textColor="@color/black"/>
                 <TextView
+                    android:id="@+id/informacion_cita_proxima_fechas"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
                     android:fontFamily="@font/coolvetica"
                     android:text="@string/no_hay_proximas_citas"
                     android:textSize="16sp"
-                    android:textAlignment="center"/>
+                    android:gravity="center"/>
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
@@ -160,11 +162,12 @@
             android:layout_margin="10dp"
             android:background="@color/gray"/>
 
-        <View
+        <LinearLayout
             android:id="@+id/doctor_informacion_cita_paciente"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"/>
+            android:layout_margin="10dp"
+            android:orientation="vertical"/>
 
         <Button
             android:layout_width="match_parent"

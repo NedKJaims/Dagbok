@@ -30,12 +30,15 @@ public class AgregarCita extends AppCompatActivity {
 
     private LinearLayout padreDatosUsuario;
 
+    private EditText enfermedad;
+    private EditText descripcion;
     private EditText fecha;
     private EditText subfechas;
     private EditText correoPaciente;
 
     private Timestamp fechaLocal;
     private String idPaciente;
+    private String nombrePaciente;
     private List<Timestamp> subFechasLocal;
 
     private AlertDialog cargando;
@@ -45,6 +48,8 @@ public class AgregarCita extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_agregar_cita);
 
+        enfermedad = findViewById(R.id.agregarCita_enfermedad_text);
+        descripcion = findViewById(R.id.agregarCita_descripcion_text);
         fecha = findViewById(R.id.agregarCita_fecha_text);
         subfechas = findViewById(R.id.agregarCita_subFechas_text);
         correoPaciente = findViewById(R.id.agregarCita_correoPaciente_email);
@@ -53,6 +58,7 @@ public class AgregarCita extends AppCompatActivity {
 
         subFechasLocal = new ArrayList<>();
         idPaciente = "";
+        nombrePaciente = "";
 
         final AlertDialog.Builder builder = new AlertDialog.Builder(AgregarCita.this);
         builder.setCancelable(false);
@@ -123,7 +129,27 @@ public class AgregarCita extends AppCompatActivity {
             correoPaciente.setError(getString(R.string.busque_usuario));
             result = true;
         }
+
+        if(enfermedad.getText().toString().isEmpty()){
+            enfermedad.setError(getString(R.string.llenar_campo_vacio));
+            result = true;
+        }
         return result;
+    }
+
+    @NonNull
+    private Cita crearCita() {
+        Cita cita = new Cita();
+        cita.setActiva(true);
+        cita.setIdDoctor(Global.firebaseUsuario.getUid());
+        cita.setIdPaciente(idPaciente);
+        cita.setNombrePaciente(nombrePaciente);
+        cita.setEnfermedad(enfermedad.getText().toString());
+        cita.setDescripcion(descripcion.getText().toString());
+        cita.setFecha(fechaLocal);
+        cita.setProximasFechas(subFechasLocal);
+        cita.setIdReceta("");
+        return cita;
     }
 
     public void atras(View v) {
@@ -211,6 +237,7 @@ public class AgregarCita extends AppCompatActivity {
                 //indice 0 ya que no existen correos repetidos, entonces solo habra un usuario en la lista
                 Usuario paciente = queryDocumentSnapshots.getDocuments().get(0).toObject(Usuario.class);
                 Objects.requireNonNull(paciente);
+                nombrePaciente = paciente.getNombre().concat(" ").concat(paciente.getApellidos());
                 int tipoTarjeta = ComponenteTarjetaUsuario.TARJETA_SENCILLA_USUARIO;
                 ComponenteTarjetaUsuario tarjetaUsuario = new ComponenteTarjetaUsuario(AgregarCita.this, tipoTarjeta, paciente);
                 LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -224,11 +251,12 @@ public class AgregarCita extends AppCompatActivity {
 
     public void agregarCita(View v) {
         if(!algunCampoVacio()) {
-            Cita cita = new Cita(Global.firebaseUsuario.getUid(), idPaciente, fechaLocal, subFechasLocal);
+            Cita cita = crearCita();
             cargando.show();
             FirebaseFirestore.getInstance().collection("Citas").add(cita).addOnSuccessListener(documentReference -> {
 
                 Intent datos = new Intent();
+                datos.putExtra("idCita", documentReference.getId());
                 datos.putExtra("cita", cita);
                 setResult(Global.AGREGO_CITA, datos);
 
