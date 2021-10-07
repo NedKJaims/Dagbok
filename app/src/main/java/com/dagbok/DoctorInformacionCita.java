@@ -1,5 +1,7 @@
 package com.dagbok;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -8,12 +10,14 @@ import androidx.core.content.res.ResourcesCompat;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
+import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -31,11 +35,14 @@ import java.util.Objects;
 
 public class DoctorInformacionCita extends AppCompatActivity {
 
+    private ActivityResultLauncher<Intent> resultLauncher;
+
     private TextView enfermedad;
     private TextView descripcion;
     private TextView proceso;
     private TextView fecha;
     private TextView proximasFechasPadre;
+    private Button switchTratamiento;
 
     private AlertDialog cargando;
 
@@ -43,6 +50,24 @@ public class DoctorInformacionCita extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_doctor_informacion_cita);
+
+        resultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+            setResult(result.getResultCode());
+            if(result.getResultCode() == Global.MODIFICO_CITA) {
+                Objects.requireNonNull(result.getData());
+                Cita previa = getIntent().getParcelableExtra("cita");
+                if(previa.getProximasFechas().size() != 0) {
+                    LinearLayout proximasPadre = (LinearLayout)proximasFechasPadre.getParent();
+                    proximasPadre.removeViewAt(proximasPadre.getChildCount() - 1);
+                }
+                getIntent().removeExtra("cita");
+                getIntent().putExtra("cita", (Cita)result.getData().getParcelableExtra("cita"));
+                establecerInformacionCita();
+                setResult(Global.MODIFICO_CITA);
+            } else if(result.getResultCode() == Global.ELIMINO_CITA) {
+                finish();
+            }
+        });
 
         AlertDialog.Builder builder = new AlertDialog.Builder(DoctorInformacionCita.this);
         builder.setView(R.layout.popup_cargando_datos);
@@ -54,10 +79,9 @@ public class DoctorInformacionCita extends AppCompatActivity {
         proceso = findViewById(R.id.informacion_cita_preceso_text);
         fecha = findViewById(R.id.informacion_cita_fecha_text);
         proximasFechasPadre = findViewById(R.id.informacion_cita_proxima_fechas);
+        switchTratamiento = findViewById(R.id.doctor_informacion_cita_tratamiento_btn);
 
         establecerInformacionCita();
-
-        LinearLayout recetaPadre = findViewById(R.id.informacion_cita_receta_padre);
 
         Cita cita = getIntent().getParcelableExtra("cita");
         LinearLayout informacionPaciente = findViewById(R.id.doctor_informacion_cita_paciente);
@@ -83,6 +107,9 @@ public class DoctorInformacionCita extends AppCompatActivity {
         calendar.setTime(cita.getFecha().toDate());
         Global.establecerFormatoColonTextView(fecha, getString(R.string.fecha_colon), Global.crearFormatoTiempo(DoctorInformacionCita.this, calendar));
 
+        String txt_btn = (cita.isActiva()) ? getString(R.string.terminar_tratamiento) : getString(R.string.activar_tratamiento);
+        switchTratamiento.setText(txt_btn);
+
         if(cita.getProximasFechas().size() != 0) {
 
             proximasFechasPadre.setText(obtenerStringCitas(cita, calendar));
@@ -90,6 +117,7 @@ public class DoctorInformacionCita extends AppCompatActivity {
             proximasFechasPadre.setTextColor(getColor(R.color.black));
 
             LinearLayout padre = (LinearLayout) proximasFechasPadre.getParent();
+
             CardView boton = crearBotonVerMas(getString(R.string.establecer_proxima_fecha));
             boton.setOnClickListener(view -> {
                 Timestamp prox = cita.getProximasFechas().get(0);
@@ -156,7 +184,6 @@ public class DoctorInformacionCita extends AppCompatActivity {
         if(colorTexto != -1)
             res.setTextColor(getColor(colorTexto));
         res.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
-        res.setTextSize(TypedValue.COMPLEX_UNIT_SP, 22);
         res.setLayoutParams(params);
         return res;
     }
@@ -180,5 +207,30 @@ public class DoctorInformacionCita extends AppCompatActivity {
     }
 
     public void atras(View v) { onBackPressed(); }
+
+    public void editarCita(View v) {
+        Intent editarCita = new Intent(DoctorInformacionCita.this, EditarCita.class);
+        editarCita.putExtra("idCita", getIntent().getStringExtra("idCita"));
+        editarCita.putExtra("cita", (Cita)getIntent().getParcelableExtra("cita"));
+        resultLauncher.launch(editarCita);
+    }
+
+    public void terminarTratamiento(View v) {
+        String id = getIntent().getStringExtra("idCita");
+        Cita cita = getIntent().getParcelableExtra("cita");
+        cargando.show();
+        FirebaseFirestore.getInstance().document("Citas/".concat(id)).update("activa", !cita.isActiva()).addOnSuccessListener(unused -> {
+            cita.setActiva(!cita.isActiva());
+            String procesoTxt = (cita.isActiva()) ? getString(R.string.tratamiento) : getString(R.string.finalizado);
+            Global.establecerFormatoColonTextView(proceso, getString(R.string.proceso_colon), procesoTxt);
+            String txt_btn = (cita.isActiva()) ? getString(R.string.terminar_tratamiento) : getString(R.string.activar_tratamiento);
+            switchTratamiento.setText(txt_btn);
+            setResult(Global.MODIFICO_CITA);
+            cargando.dismiss();
+        }).addOnFailureListener(e -> {
+            Toast.makeText(DoctorInformacionCita.this, R.string.no_hay_conexion, Toast.LENGTH_LONG).show();
+            cargando.dismiss();
+        });
+    }
 
 }

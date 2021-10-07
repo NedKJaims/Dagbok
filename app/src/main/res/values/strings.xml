@@ -84,6 +84,10 @@
     <string name="editar_cita">Editar Cita</string>
     <string name="descripcion_colon">Descripción:</string>
     <string name="establecer_proxima_fecha">Establecer proxima fecha</string>
+    <string name="terminar_tratamiento">Terminar tratamiento</string>
+    <string name="activar_tratamiento">Activar tratamiento</string>
+    <!-- EDITAR CITA -->
+    <string name="pregunta_eliminar_cita">¿Está seguro de eliminar la cita?</string>
 
     <!-- ERROR FIELDS -->
     <string name="configuracion_usuario">Configurar usuario</string>

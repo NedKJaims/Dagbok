@@ -12,7 +12,6 @@ public class Cita implements Parcelable {
     private boolean activa;
     private String idDoctor;
     private String idPaciente;
-    private String idReceta;
     private Timestamp fecha;
     private List<Timestamp> proximasFechas;
     private String enfermedad;
@@ -27,7 +26,6 @@ public class Cita implements Parcelable {
         activa = in.readByte() != 0;
         idDoctor = in.readString();
         idPaciente = in.readString();
-        idReceta = in.readString();
         fecha = in.readParcelable(Timestamp.class.getClassLoader());
         proximasFechas = in.createTypedArrayList(Timestamp.CREATOR);
         enfermedad = in.readString();
@@ -40,7 +38,6 @@ public class Cita implements Parcelable {
         dest.writeByte((byte) (activa ? 1 : 0));
         dest.writeString(idDoctor);
         dest.writeString(idPaciente);
-        dest.writeString(idReceta);
         dest.writeParcelable(fecha, flags);
         dest.writeTypedList(proximasFechas);
         dest.writeString(enfermedad);
@@ -87,14 +84,6 @@ public class Cita implements Parcelable {
 
     public void setIdPaciente(String idPaciente) {
         this.idPaciente = idPaciente;
-    }
-
-    public String getIdReceta() {
-        return idReceta;
-    }
-
-    public void setIdReceta(String idReceta) {
-        this.idReceta = idReceta;
     }
 
     public Timestamp getFecha() {

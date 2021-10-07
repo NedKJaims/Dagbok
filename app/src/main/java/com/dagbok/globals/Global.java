@@ -31,6 +31,7 @@ public class Global {
     public static final int ELIMINAR_CUENTA = 101;
     public static final int AGREGO_CITA = 102;
     public static final int MODIFICO_CITA = 103;
+    public static final int ELIMINO_CITA = 104;
 
     public static String crearFormatoHora(Context activity, int hora, int minutos) {
         String result;

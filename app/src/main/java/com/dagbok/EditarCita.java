@@ -8,37 +8,28 @@ import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.Toast;
 
-import com.dagbok.componentes.ComponenteTarjetaUsuario;
 import com.dagbok.globals.Global;
 import com.dagbok.objetos.Cita;
-import com.dagbok.objetos.Usuario;
 import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.SetOptions;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
-import java.util.Objects;
 
-public class AgregarCita extends AppCompatActivity {
-
-    private LinearLayout padreDatosUsuario;
+public class EditarCita extends AppCompatActivity {
 
     private EditText enfermedad;
     private EditText descripcion;
     private EditText fecha;
     private EditText subfechas;
-    private EditText correoPaciente;
 
     private Timestamp fechaLocal;
-    private String idPaciente;
-    private String nombrePaciente;
     private List<Timestamp> subFechasLocal;
 
     private AlertDialog cargando;
@@ -46,21 +37,28 @@ public class AgregarCita extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_agregar_cita);
+        setContentView(R.layout.activity_editar_cita);
 
-        enfermedad = findViewById(R.id.agregarCita_enfermedad_text);
-        descripcion = findViewById(R.id.agregarCita_descripcion_text);
-        fecha = findViewById(R.id.agregarCita_fecha_text);
-        subfechas = findViewById(R.id.agregarCita_subFechas_text);
-        correoPaciente = findViewById(R.id.agregarCita_correoPaciente_email);
-
-        padreDatosUsuario = findViewById(R.id.agregarCita_paciente_padre_layout);
+        enfermedad = findViewById(R.id.editarCita_enfermedad_text);
+        descripcion = findViewById(R.id.editarCita_descripcion_text);
+        fecha = findViewById(R.id.editarCita_fecha_text);
+        subfechas = findViewById(R.id.editarCita_subFechas_text);
 
         subFechasLocal = new ArrayList<>();
-        idPaciente = "";
-        nombrePaciente = "";
 
-        final AlertDialog.Builder builder = new AlertDialog.Builder(AgregarCita.this);
+        Cita cita = getIntent().getParcelableExtra("cita");
+        enfermedad.setText(cita.getEnfermedad());
+        descripcion.setText(cita.getDescripcion());
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(cita.getFecha().toDate());
+        fechaLocal = cita.getFecha();
+        fecha.setText(Global.crearFormatoTiempo(EditarCita.this,calendar));
+        if(cita.getProximasFechas() != null) {
+            subFechasLocal.addAll(cita.getProximasFechas());
+            actualizarSubFechas();
+        }
+
+        final AlertDialog.Builder builder = new AlertDialog.Builder(EditarCita.this);
         builder.setCancelable(false);
         builder.setView(R.layout.popup_cargando_datos);
         cargando = builder.create();
@@ -115,18 +113,13 @@ public class AgregarCita extends AppCompatActivity {
     private String obtenerFechaTexto(Timestamp tiempo) {
         final Calendar calendar = Calendar.getInstance();
         calendar.setTime(tiempo.toDate());
-        return Global.crearFormatoTiempo(AgregarCita.this, calendar);
+        return Global.crearFormatoTiempo(EditarCita.this, calendar);
     }
 
     private boolean algunCampoVacio() {
         boolean result = false;
         if(fechaLocal == null) {
             fecha.setError(getString(R.string.llenar_campo_vacio));
-            result = true;
-        }
-
-        if(idPaciente.isEmpty()) {
-            correoPaciente.setError(getString(R.string.busque_usuario));
             result = true;
         }
 
@@ -137,30 +130,12 @@ public class AgregarCita extends AppCompatActivity {
         return result;
     }
 
-    @NonNull
-    private Cita crearCita() {
-        Cita cita = new Cita();
-        cita.setActiva(true);
-        cita.setIdDoctor(Global.firebaseUsuario.getUid());
-        cita.setIdPaciente(idPaciente);
-        cita.setNombrePaciente(nombrePaciente);
-        cita.setEnfermedad(enfermedad.getText().toString());
-        cita.setDescripcion(descripcion.getText().toString());
-        cita.setFecha(fechaLocal);
-        cita.setProximasFechas(subFechasLocal);
-        return cita;
-    }
-
-    public void atras(View v) {
-        onBackPressed();
-    }
-
     public void establecerFecha(View v) {
         final Calendar calendar = Calendar.getInstance();
-        final DatePickerDialog fechaDialog = new DatePickerDialog(AgregarCita.this, (datePicker, ano1, mes1, dia1) -> {
+        final DatePickerDialog fechaDialog = new DatePickerDialog(EditarCita.this, (datePicker, ano1, mes1, dia1) -> {
             calendar.set(ano1, mes1, dia1,0,0);
             if(comprobarFechaRepetida(calendar)) {
-                Toast.makeText(AgregarCita.this, R.string.fecha_repetida, Toast.LENGTH_LONG).show();
+                Toast.makeText(EditarCita.this, R.string.fecha_repetida, Toast.LENGTH_LONG).show();
             } else {
                 fechaLocal = new Timestamp(calendar.getTime());
                 final String tiempoTexto = obtenerFechaTexto(fechaLocal);
@@ -178,13 +153,13 @@ public class AgregarCita extends AppCompatActivity {
             fecha.setError(getString(R.string.asigne_fecha));
         } else {
             final Calendar calendar = Calendar.getInstance();
-            final DatePickerDialog fechaDialog = new DatePickerDialog(AgregarCita.this, (datePicker, ano1, mes1, dia1) -> {
+            final DatePickerDialog fechaDialog = new DatePickerDialog(EditarCita.this, (datePicker, ano1, mes1, dia1) -> {
                 calendar.set(ano1, mes1, dia1,0,0);
                 if (comprobarFechaRepetida(calendar)) {
-                    Toast.makeText(AgregarCita.this, R.string.fecha_repetida, Toast.LENGTH_LONG).show();
+                    Toast.makeText(EditarCita.this, R.string.fecha_repetida, Toast.LENGTH_LONG).show();
                 } else {
                     if(comprobarFechaNoMenor(calendar)) {
-                        Toast.makeText(AgregarCita.this, R.string.fecha_desfazada_menor, Toast.LENGTH_LONG).show();
+                        Toast.makeText(EditarCita.this, R.string.fecha_desfazada_menor, Toast.LENGTH_LONG).show();
                     } else {
                         Timestamp temp = new Timestamp(calendar.getTime());
                         subFechasLocal.add(temp);
@@ -198,7 +173,7 @@ public class AgregarCita extends AppCompatActivity {
 
     public void eliminarSubFecha(View v) {
         if(!subFechasLocal.isEmpty()) {
-            final AlertDialog.Builder builder = new AlertDialog.Builder(AgregarCita.this);
+            final AlertDialog.Builder builder = new AlertDialog.Builder(EditarCita.this);
             final CharSequence[] escoger = new CharSequence[subFechasLocal.size()];
             final boolean[] selecciondas = new boolean[subFechasLocal.size()];
             for (int i = 0; i < subFechasLocal.size(); i++) {
@@ -222,50 +197,63 @@ public class AgregarCita extends AppCompatActivity {
             });
             builder.show();
         } else {
-            Toast.makeText(AgregarCita.this, R.string.no_hay_sub_fechas, Toast.LENGTH_LONG).show();
+            Toast.makeText(EditarCita.this, R.string.no_hay_sub_fechas, Toast.LENGTH_LONG).show();
         }
     }
 
-    public void buscarUsuario(View v) {
-        final String correo = correoPaciente.getText().toString();
-        FirebaseFirestore.getInstance().collection("Usuarios").whereEqualTo("correo", correo).get().addOnSuccessListener(queryDocumentSnapshots -> {
-            if(queryDocumentSnapshots.isEmpty()) {
-                Toast.makeText(AgregarCita.this, R.string.no_encontro_usuario, Toast.LENGTH_LONG).show();
-            } else {
-                idPaciente = queryDocumentSnapshots.getDocuments().get(0).getId();
-                //indice 0 ya que no existen correos repetidos, entonces solo habra un usuario en la lista
-                Usuario paciente = queryDocumentSnapshots.getDocuments().get(0).toObject(Usuario.class);
-                Objects.requireNonNull(paciente);
-                nombrePaciente = paciente.getNombre().concat(" ").concat(paciente.getApellidos());
-                int tipoTarjeta = ComponenteTarjetaUsuario.TARJETA_SENCILLA_USUARIO;
-                ComponenteTarjetaUsuario tarjetaUsuario = new ComponenteTarjetaUsuario(AgregarCita.this, tipoTarjeta, paciente);
-                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-                int margen = (int)(10 * getResources().getDisplayMetrics().density);
-                params.setMargins(margen,margen,margen,margen);
-                padreDatosUsuario.removeAllViews();
-                padreDatosUsuario.addView(tarjetaUsuario,params);
-            }
-        }).addOnFailureListener(e -> Toast.makeText(AgregarCita.this, R.string.no_hay_conexion, Toast.LENGTH_LONG).show());
+    @NonNull
+    private Cita obtenerResultado() {
+
+        Cita anterior = getIntent().getParcelableExtra("cita");
+        Cita resultado = new Cita();
+
+        resultado.setActiva(anterior.isActiva());
+        resultado.setIdDoctor(anterior.getIdDoctor());
+        resultado.setIdPaciente(anterior.getIdPaciente());
+        resultado.setNombrePaciente(anterior.getNombrePaciente());
+
+        resultado.setEnfermedad(enfermedad.getText().toString());
+        resultado.setDescripcion(descripcion.getText().toString());
+        resultado.setFecha(fechaLocal);
+        resultado.setProximasFechas(subFechasLocal);
+
+        return resultado;
     }
 
-    public void agregarCita(View v) {
-        if(!algunCampoVacio()) {
-            Cita cita = crearCita();
+    public void atras(View v) { onBackPressed(); }
+
+    public void eliminarCita(View v) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(EditarCita.this);
+        builder.setTitle(R.string.pregunta_eliminar_cita);
+        builder.setNegativeButton(R.string.cancelar, null);
+        builder.setPositiveButton(R.string.aceptar, (dialogInterface, i) -> {
+            String id = getIntent().getStringExtra("idCita");
             cargando.show();
-            FirebaseFirestore.getInstance().collection("Citas").add(cita).addOnSuccessListener(documentReference -> {
-
-                Intent datos = new Intent();
-                datos.putExtra("idCita", documentReference.getId());
-                datos.putExtra("cita", cita);
-                setResult(Global.AGREGO_CITA, datos);
-
+            FirebaseFirestore.getInstance().document("Citas/".concat(id)).delete().addOnSuccessListener(unused -> {
                 cargando.dismiss();
-                Toast.makeText(AgregarCita.this, R.string.agrego_cita, Toast.LENGTH_LONG).show();
+                setResult(Global.ELIMINO_CITA);
+                finish();
+            });
+        });
+        builder.show();
+    }
+
+    public void actualizarCita(View v) {
+        if(!algunCampoVacio()) {
+            cargando.show();
+            Cita nueva = obtenerResultado();
+            String id = getIntent().getStringExtra("idCita");
+            FirebaseFirestore.getInstance().document("Citas/".concat(id)).set(nueva, SetOptions.merge()).addOnSuccessListener(unused -> {
+                cargando.dismiss();
+                Intent resultado = new Intent();
+                resultado.putExtra("cita",nueva);
+                setResult(Global.MODIFICO_CITA,resultado);
                 finish();
             }).addOnFailureListener(e -> {
-                Toast.makeText(AgregarCita.this, R.string.no_hay_conexion, Toast.LENGTH_LONG).show();
+                Toast.makeText(EditarCita.this, R.string.no_hay_conexion, Toast.LENGTH_LONG).show();
                 cargando.dismiss();
             });
+
         }
     }
 

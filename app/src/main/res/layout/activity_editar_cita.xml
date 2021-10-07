@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/fondo"
+    tools:context=".EditarCita">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shape_title_bar"
+            android:backgroundTint="@color/verde_primario"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/boton_atras"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:backgroundTint="@color/verde_primario"
+                android:contentDescription="@string/todo"
+                android:minHeight="48dp"
+                android:onClick="atras"
+                android:src="@drawable/ic_flecha_atras"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="DuplicateSpeakableTextCheck" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="20dp"
+                android:fontFamily="@font/coolvetica"
+                android:text="@string/editar_cita"
+                android:textColor="@color/black"
+                android:textSize="28sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/boton_cambio_citas"
+                app:layout_constraintStart_toEndOf="@+id/boton_atras"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageButton
+                android:id="@+id/boton_cambio_citas"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:minHeight="48dp"
+                android:layout_margin="10dp"
+                android:layout_gravity="end"
+                android:backgroundTint="@color/verde_primario"
+                android:src="@drawable/ic_delete"
+                android:scaleX="0.8"
+                android:scaleY="0.8"
+                android:onClick="eliminarCita"
+                android:contentDescription="@string/todo"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:hint="@string/enfermedad_ast"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="10dp"
+            app:boxBackgroundMode="filled"
+            app:boxStrokeWidth="0dp"
+            app:boxStrokeWidthFocused="0dp"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+            <EditText
+                android:id="@+id/editarCita_enfermedad_text"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:background="@drawable/shape_edit_text"
+                android:ems="10"
+                android:fontFamily="@font/coolvetica"
+                android:importantForAutofill="no"
+                android:inputType="text"
+                android:textColor="@color/black"
+                app:drawableTint="@color/black"
+                tools:ignore="LabelFor,SpeakableTextPresentCheck" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:hint="@string/descripcion"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="10dp"
+            app:boxBackgroundMode="filled"
+            app:boxStrokeWidth="0dp"
+            app:boxStrokeWidthFocused="0dp"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+            <EditText
+                android:id="@+id/editarCita_descripcion_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape_edit_text"
+                android:ems="10"
+                android:fontFamily="@font/coolvetica"
+                android:importantForAutofill="no"
+                android:inputType="textMultiLine"
+                android:lines="3"
+                android:textColor="@color/black"
+                app:drawableTint="@color/black"
+                tools:ignore="LabelFor,SpeakableTextPresentCheck" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:hint="@string/fecha_ast"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="10dp"
+            app:boxBackgroundMode="filled"
+            app:boxStrokeWidth="0dp"
+            app:boxStrokeWidthFocused="0dp"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+            <EditText
+                android:id="@+id/editarCita_fecha_text"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:background="@drawable/shape_edit_text"
+                android:ems="10"
+                android:fontFamily="@font/coolvetica"
+                android:drawableEnd="@drawable/ic_calendar"
+                app:drawableTint="@color/black"
+                android:inputType="text"
+                android:textColor="@color/black"
+                android:onClick="establecerFecha"
+                android:focusable="false"
+                android:importantForAutofill="no"
+                tools:ignore="LabelFor, SpeakableTextPresentCheck" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:hint="@string/subcitas"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="10dp"
+            app:boxBackgroundMode="filled"
+            app:boxStrokeWidth="0dp"
+            app:boxStrokeWidthFocused="0dp"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+            <EditText
+                android:id="@+id/editarCita_subFechas_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape_edit_text"
+                android:ems="10"
+                android:fontFamily="@font/coolvetica"
+                app:drawableTint="@color/black"
+                android:inputType="textMultiLine"
+                android:minLines="3"
+                android:textColor="@color/black"
+                android:focusable="false"
+                android:clickable="false"
+                android:importantForAutofill="no"
+                tools:ignore="LabelFor, SpeakableTextPresentCheck" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="2"
+            android:orientation="horizontal">
+
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_marginHorizontal="10dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                android:layout_weight="1"
+                android:background="@drawable/shape_button"
+                android:fontFamily="@font/coolvetica"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:text="@string/agregar"
+                android:textAllCaps="false"
+                android:onClick="agregarSubFecha"
+                android:textColor="@color/white"
+                android:textSize="24sp"
+                app:backgroundTint="@color/azul"
+                tools:ignore="ButtonStyle,DuplicateSpeakableTextCheck" />
+
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_marginHorizontal="10dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                android:layout_weight="1"
+                android:background="@drawable/shape_button"
+                android:fontFamily="@font/coolvetica"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:text="@string/remover"
+                android:onClick="eliminarSubFecha"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="24sp"
+                app:backgroundTint="@color/rojo"
+                tools:ignore="ButtonStyle,DuplicateSpeakableTextCheck" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_margin="10dp"
+            android:background="@color/gray"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/shape_button"
+            android:fontFamily="@font/coolvetica"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:text="@string/aceptar"
+            android:onClick="actualizarCita"
+            android:textAllCaps="false"
+            android:textColor="@color/black"
+            android:textSize="24sp"
+            tools:ignore="ButtonStyle,DuplicateSpeakableTextCheck" />
+
+    </LinearLayout>
+</ScrollView>

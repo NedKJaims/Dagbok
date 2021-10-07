@@ -40,60 +40,7 @@
                 android:fontFamily="@font/coolvetica"
                 />
         </LinearLayout>
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:text="@string/ultima_propuesta"
-            android:textSize="20sp"
-            android:textColor="@color/black"
-            android:fontFamily="@font/coolvetica"/>
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="3dp"
-            android:layout_marginHorizontal="10dp"
-            android:background="@color/gray"/>
-        <LinearLayout
-            android:id="@+id/pacienteLitaCitas_peticiones_lista"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:orientation="vertical">
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/no_hay_propuestas"
-                android:textAlignment="center"
-                android:textSize="20sp"
-                android:fontFamily="@font/coolvetica"/>
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginHorizontal="10dp"
-                android:layout_marginBottom="20dp"
-                android:background="@drawable/shape_button"
-                android:foreground="?android:attr/selectableItemBackground"
-                android:text="@string/nueva_propuesta"
-                android:textColor="@color/black"
-                android:fontFamily="@font/coolvetica"
-                android:layout_marginTop="20dp"
-                android:textSize="24sp"
-                android:textAllCaps="false"
-                android:onClick="agregarPeticion"/>
-        </LinearLayout>
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:text="@string/citas"
-            android:textSize="20sp"
-            android:textColor="@color/black"
-            android:fontFamily="@font/coolvetica"/>
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="3dp"
-            android:layout_marginHorizontal="10dp"
-            android:background="@color/gray"/>
+
         <LinearLayout
             android:id="@+id/pacienteLitaCitas_citas_lista"
             android:layout_width="match_parent"

@@ -11,6 +11,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Dagbok">
         <activity
+            android:name=".EditarCita"
+            android:exported="true" />
+        <activity
             android:name=".EstatusConsultorio"
             android:exported="true" />
         <activity

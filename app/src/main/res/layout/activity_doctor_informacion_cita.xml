@@ -125,44 +125,6 @@
             android:background="@color/gray"/>
 
         <LinearLayout
-            android:id="@+id/informacion_cita_receta_padre"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="15dp"
-                android:layout_marginVertical="10dp"
-                android:fontFamily="@font/coolvetica"
-                android:text="@string/no_hay_receta"
-                android:textAlignment="center"
-                android:textSize="20sp"/>
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginHorizontal="10dp"
-                android:layout_marginTop="20dp"
-                android:background="@drawable/shape_button"
-                app:backgroundTint="@color/azul"
-                android:fontFamily="@font/coolvetica"
-                android:foreground="?android:attr/selectableItemBackground"
-                android:text="@string/agregar_tratamiento"
-                android:textAllCaps="false"
-                android:textColor="@color/white"
-                android:textSize="20sp"
-                tools:ignore="DuplicateSpeakableTextCheck" />
-        </LinearLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:layout_margin="10dp"
-            android:background="@color/gray"/>
-
-        <LinearLayout
             android:id="@+id/doctor_informacion_cita_paciente"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -174,12 +136,29 @@
             android:layout_height="50dp"
             android:layout_margin="10dp"
             android:background="@drawable/shape_button"
+            app:backgroundTint="@color/azul"
             android:fontFamily="@font/coolvetica"
             android:foreground="?android:attr/selectableItemBackground"
             android:text="@string/editar_cita"
             android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:onClick="editarCita"
+            tools:ignore="DuplicateSpeakableTextCheck" />
+
+        <Button
+            android:id="@+id/doctor_informacion_cita_tratamiento_btn"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_margin="10dp"
+            android:background="@drawable/shape_button"
+            android:fontFamily="@font/coolvetica"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:text="@string/terminar_tratamiento"
+            android:textAllCaps="false"
             android:textColor="@color/black"
             android:textSize="20sp"
+            android:onClick="terminarTratamiento"
             tools:ignore="DuplicateSpeakableTextCheck" />
 
     </LinearLayout>

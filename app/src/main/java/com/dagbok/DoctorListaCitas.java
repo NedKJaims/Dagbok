@@ -68,7 +68,7 @@ public class DoctorListaCitas extends AppCompatActivity {
 
                 ultimaCitaCapturada = null;
                 cargarListaCitas();
-            } else if(result.getResultCode() == Global.MODIFICO_CITA) {
+            } else if(result.getResultCode() == Global.MODIFICO_CITA || result.getResultCode() == Global.ELIMINO_CITA) {
                 ultimaCitaCapturada = null;
                 cargarListaCitas();
             }

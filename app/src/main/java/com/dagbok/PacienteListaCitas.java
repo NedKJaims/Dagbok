@@ -28,10 +28,6 @@ public class PacienteListaCitas extends AppCompatActivity {
 
     }
 
-    public void agregarPeticion(View v) {
-
-    }
-
     public void atras(View v) {
         onBackPressed();
     }
