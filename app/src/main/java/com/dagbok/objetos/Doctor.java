@@ -19,6 +19,7 @@ public class Doctor extends Usuario {
         setPeso(usuario.getPeso());
         setFechaNacimiento(usuario.getFechaNacimiento());
         setUrlFoto(usuario.getUrlFoto());
+        setCorreo(usuario.getCorreo());
     }
 
     public List<String> getEspecialidades() {

@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.dagbok.globals.Global;
+import com.dagbok.objetos.Doctor;
 import com.google.firebase.auth.FirebaseAuth;
 import com.squareup.picasso.Picasso;
 
@@ -65,6 +66,22 @@ public class MenuPrincipal extends AppCompatActivity {
         }
     }
 
+    private boolean doctorConfigurado() {
+        if(Global.usuario.isEsDoctor()) {
+            Doctor doctor = (Doctor) Global.usuario;
+            if(doctor.getEspecialidades() != null && doctor.getHorarios() != null){
+                if(doctor.getEspecialidades().size() == 0 && doctor.getHorarios().size() == 0) {
+                    usuarioNoConfigurado.show();
+                    return false;
+                }
+            } else {
+                usuarioNoConfigurado.show();
+                return false;
+            }
+        }
+        return true;
+    }
+
     public void cerrarSesion(View v) {
         FirebaseAuth.getInstance().signOut();
         Global.usuario = null;
@@ -83,8 +100,11 @@ public class MenuPrincipal extends AppCompatActivity {
         if(Global.usuario == null) {
             usuarioNoConfigurado.show();
         } else {
-            Intent estatus = new Intent(MenuPrincipal.this, EstatusConsultorio.class);
-            startActivity(estatus);
+            if(doctorConfigurado()) {
+                Intent estatus = new Intent(MenuPrincipal.this, EstatusConsultorio.class);
+                startActivity(estatus);
+            }
+
         }
     }
 
@@ -92,8 +112,11 @@ public class MenuPrincipal extends AppCompatActivity {
         if(Global.usuario == null) {
             usuarioNoConfigurado.show();
         } else {
-            Intent citas = new Intent(MenuPrincipal.this, DoctorListaCitas.class);
-            startActivity(citas);
+            if(doctorConfigurado()) {
+                boolean esDoctor = Global.usuario.isEsDoctor();
+                Intent citas = new Intent(MenuPrincipal.this, (esDoctor) ? DoctorListaCitas.class : PacienteListaCitas.class);
+                startActivity(citas);
+            }
         }
     }
 

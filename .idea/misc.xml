@@ -31,10 +31,12 @@
         <entry key="..\:/Users/NedJa/AndroidStudioProjects/Dagbok/app/src/main/res/layout/activity_inicio_sesion.xml" value="0.19074074074074074" />
         <entry key="..\:/Users/NedJa/AndroidStudioProjects/Dagbok/app/src/main/res/layout/activity_menu_principal.xml" value="0.12894736842105264" />
         <entry key="..\:/Users/NedJa/AndroidStudioProjects/Dagbok/app/src/main/res/layout/activity_paciente_estatus_consultorio.xml" value="0.17777777777777778" />
-        <entry key="..\:/Users/NedJa/AndroidStudioProjects/Dagbok/app/src/main/res/layout/activity_paciente_lista_citas.xml" value="0.16296296296296298" />
+        <entry key="..\:/Users/NedJa/AndroidStudioProjects/Dagbok/app/src/main/res/layout/activity_paciente_informacion_cita.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/NedJa/AndroidStudioProjects/Dagbok/app/src/main/res/layout/activity_paciente_lista_citas.xml" value="0.25" />
         <entry key="..\:/Users/NedJa/AndroidStudioProjects/Dagbok/app/src/main/res/layout/activity_paciente_lista_usuarios.xml" value="0.17962962962962964" />
         <entry key="..\:/Users/NedJa/AndroidStudioProjects/Dagbok/app/src/main/res/layout/activity_registro.xml" value="0.16666666666666666" />
         <entry key="..\:/Users/NedJa/AndroidStudioProjects/Dagbok/app/src/main/res/layout/componente_cita.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/NedJa/AndroidStudioProjects/Dagbok/app/src/main/res/layout/componente_cita_paciente.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/NedJa/AndroidStudioProjects/Dagbok/app/src/main/res/layout/componente_tarjeta_doctor_estatus_consultorio.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/NedJa/AndroidStudioProjects/Dagbok/app/src/main/res/layout/componente_tarjeta_usuario.xml" value="0.1935185185185185" />
         <entry key="..\:/Users/NedJa/AndroidStudioProjects/Dagbok/app/src/main/res/layout/popup_cambiar_datos_doctor.xml" value="0.20416666666666666" />

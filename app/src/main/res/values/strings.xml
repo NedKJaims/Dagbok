@@ -8,10 +8,10 @@
 
     <!-- REGISTRO LAYOUT -->
     <string name="registro">Registro paciente</string>
-    <string name="advertencia_registro_doctor">Advertencia: Si usted es doctor, se le recomienda registrarse con un correo intitucional y ponerse en contacto con el desarrollador, o mandar correo a dagbokapk@gmail.com</string>
+    <string name="advertencia_registro_doctor">Advertencia: Si usted es doctor, se le recomienda ponerse en contacto con el desarrollador, dagbokapk@gmail.com</string>
 
     <!-- TITULOS MENU PRINCIPAL -->
-    <string name="menu_principal">Menu principal</string>
+    <string name="menu_principal">Menú principal</string>
     <string name="bienvenido">Bienvenido</string>
     <string name="cerrar_sesion">Cerrar Sesión</string>
     <string name="citas">Citas</string>
@@ -39,14 +39,14 @@
     <string name="correo_paciente_ast">Correo del paciente*</string>
     <string name="fecha_ast">Fecha*</string>
     <string name="subcitas">Subcitas</string>
-    <string name="no_encontro_usuario">No se encontro un usuario con ese correo</string>
+    <string name="no_encontro_usuario">No se encontró un usuario con ese correo</string>
     <string name="no_hay_usuario_cita">No ha buscado un usuario</string>
-    <string name="fecha_repetida">Esa fecha ya esta seleccionada, ingrese otra fecha no repetida</string>
+    <string name="fecha_repetida">Esa fecha ya está seleccionada, ingrese otra fecha no repetida</string>
     <string name="no_hay_tratamientos">No hay tratamientos</string>
     <string name="agregar_tratamiento">Agregar tratamiento</string>
-    <string name="busque_usuario">Busque un usuario primero, recuerde seleccionar la lupa.</string>
-    <string name="asigne_fecha">Primero asigne una fecha base.</string>
-    <string name="fecha_desfazada_menor">La fecha es menor a la fecha base, ingrese otra.</string>
+    <string name="busque_usuario">Busque un usuario primero, recuerde seleccionar la lupa</string>
+    <string name="asigne_fecha">Primero asigne una fecha base</string>
+    <string name="fecha_desfazada_menor">La fecha es menor a la fecha base, ingrese otra</string>
     <string name="enfermedad_ast">Enfermedad*</string>
     <string name="no_hay_sub_fechas">No se han agregado subfechas, ingrese primero una</string>
 
@@ -69,7 +69,7 @@
     <string name="no_hay_citas">No hay citas</string>
     <string name="nueva_propuesta">Nueva propuesta</string>
     <string name="ultima_propuesta">Ultima propuesta</string>
-    <string name="ver_mas">Ver mas</string>
+    <string name="ver_mas">Ver más</string>
     <string name="nuevas_activas">Citas Nuevas</string>
     <string name="viejas_no_activas">Citas Anteriores</string>
 
@@ -77,13 +77,13 @@
     <string name="informacion_cita">Información Cita</string>
     <string name="proceso_colon">Proceso:</string>
     <string name="fecha_colon">Fecha:</string>
-    <string name="proximas_citas">Proximas citas</string>
-    <string name="no_hay_proximas_citas">No hay proximas citas</string>
+    <string name="proximas_citas">Próximas citas</string>
+    <string name="no_hay_proximas_citas">No hay próximas citas</string>
     <string name="receta">Receta</string>
     <string name="no_hay_receta">No hay receta</string>
     <string name="editar_cita">Editar Cita</string>
     <string name="descripcion_colon">Descripción:</string>
-    <string name="establecer_proxima_fecha">Establecer proxima fecha</string>
+    <string name="establecer_proxima_fecha">Establecer próxima fecha</string>
     <string name="terminar_tratamiento">Terminar tratamiento</string>
     <string name="activar_tratamiento">Activar tratamiento</string>
     <!-- EDITAR CITA -->
@@ -91,42 +91,42 @@
 
     <!-- ERROR FIELDS -->
     <string name="configuracion_usuario">Configurar usuario</string>
-    <string name="no_se_guardo_usuario_correctamente">No se guardo su usuario correctamente, favor de ir a configuración y cambiar sus datos.</string>
-    <string name="llenar_campo_vacio">LLenar este campo (obligatorio).</string>
-    <string name="contrasena_no_coincide">La contraseña no coincide, favor de verificarla.</string>
-    <string name="error_registro">No se pudo registrar intente mas tarde, por favor.</string>
-    <string name="corre_no_verificado">Correo no verificado, favor de verificar el correo.</string>
-    <string name="no_hay_conexion">No cuenta con conexión, favor de conectarse a la red.</string>
-    <string name="hubo_error">Hubo un error, intente mas tarde.</string>
-    <string name="key_invalida">La Key es invalida.</string>
+    <string name="no_se_guardo_usuario_correctamente">No se guardó su usuario correctamente, favor de ir a configuración y cambiar sus datos</string>
+    <string name="llenar_campo_vacio">LLenar este campo (obligatorio)</string>
+    <string name="contrasena_no_coincide">La contraseña no coincide, favor de verificarla</string>
+    <string name="error_registro">No se pudo registrar intente más tarde, por favor</string>
+    <string name="corre_no_verificado">Correo no verificado, favor de verificar el correo</string>
+    <string name="no_hay_conexion">No cuenta con conexión, favor de conectarse a la red</string>
+    <string name="hubo_error">Hubo un error, intente más tarde</string>
+    <string name="key_invalida">La Key es invalida</string>
     <string name="no_hay_especialidades">No hay Especialidades</string>
     <string name="no_hay_horarios">No hay Horarios</string>
-    <string name="hubo_algo_raro_horas">Al parecer hubo algo raro al convertir las horas, intentelo mas tarde.</string>
-    <string name="seleccione_dia_error">No ha seleccionado el dia para su horario.</string>
+    <string name="hubo_algo_raro_horas">Al parecer hubo algo raro al convertir las horas, inténtelo más tarde</string>
+    <string name="seleccione_dia_error">No ha seleccionado el día para su horario</string>
 
     <!-- ERRORES DE AUTENTIFICACION -->
-    <string name="contraseña_incorrecta">La contraseña es incorrecta.</string>
-    <string name="correo_incorrecto">El correo ingresado no existe o tiene mal formato.</string>
-    <string name="corre_mal_formato">El correo tiene mal formato.</string>
-    <string name="contraseña_debil">La contraseña es débil, favor de ingresar una contraseña con mas de 6 caracteres.</string>
-    <string name="credenciales_invalidas">El correo no es valido, favor de ingresar el correo correctamente.</string>
-    <string name="correo_usado">El correo ya esta en uso, favor de ingresar un nuevo correo.</string>
+    <string name="contraseña_incorrecta">La contraseña es incorrecta</string>
+    <string name="correo_incorrecto">El correo ingresado no existe o tiene mal formato</string>
+    <string name="corre_mal_formato">El correo tiene mal formato</string>
+    <string name="contraseña_debil">La contraseña es débil, favor de ingresar una contraseña con más de 6 caracteres</string>
+    <string name="credenciales_invalidas">El correo no es válido, favor de ingresar el correo correctamente</string>
+    <string name="correo_usado">El correo ya está en uso, favor de ingresar un nuevo correo</string>
 
     <!-- FEEDBACK -->
     <string name="espere_aviso">Por favor espere…</string>
-    <string name="cambio_datos_exitoso">Se guardaron los datos exitosamente.</string>
+    <string name="cambio_datos_exitoso">Se guardaron los datos exitosamente</string>
     <string name="eliminar_cuenta_exitosa">Cuenta Eliminada exitosamente</string>
-    <string name="inicie_sesion_borrar_cuenta">Para eliminar la cuenta cierre la sesión e inicie sesión, despues intentelo de nuevo.</string>
-    <string name="error_conexion_correo_creado">Si usted tuvo un error de conexión y el correo ya esta en uso, significa que se creo su correo.</string>
-    <string name="no_puede_terminar_turno_no_suyo">Usted no esta en turno, no puede terminar algo que no empezo.</string>
+    <string name="inicie_sesion_borrar_cuenta">Para eliminar la cuenta cierre la sesión e inicie sesión, después inténtelo de nuevo</string>
+    <string name="error_conexion_correo_creado">Si usted tuvo un error de conexión y el correo ya está en uso, significa que se creó su correo</string>
+    <string name="no_puede_terminar_turno_no_suyo">Usted no está en turno, no puede terminar algo que no empezó</string>
     <string name="agrego_cita">Se agendo la cita correctamente</string>
 
     <!-- AVISOS DE TRANSACCIONES EXITOSOS -->
     <string name="registro_exitoso">Registro exitoso</string>
-    <string name="se_le_mandara_correo_verificacion">Se le mandara un correo de verificación ala hora de iniciar sesión.</string>
-    <string name="verifique_su_correo">Verifique su correo.</string>
-    <string name="se_mando_correo_verificacion">Se envio a su correo un mensaje de verificación, favor de verificar su cuenta.</string>
-    <string name="se_mando_correo_contraseña">Se envio a su correo un mensaje de recuperación de contraseña.</string>
+    <string name="se_le_mandara_correo_verificacion">Se le mandara un correo de verificación a la hora de iniciar sesión</string>
+    <string name="verifique_su_correo">Verifique su correo</string>
+    <string name="se_mando_correo_verificacion">Se envió a su correo un mensaje de verificación, favor de verificar su cuenta</string>
+    <string name="se_mando_correo_contraseña">Se envió a su correo un mensaje de recuperación de contraseña</string>
 
     <!-- FIELDS -->
     <string name="seleccionar">Seleccionar</string>
@@ -137,7 +137,7 @@
     <string name="agregar">Agregar</string>
     <string name="agregar_especialidad">Agregar Especialidad</string>
     <string name="agregar_horario">Agregar Horario</string>
-    <string name="agregar_peticion">Agregar Peticion</string>
+    <string name="agregar_peticion">Agregar Petición</string>
     <string name="agregar_cita">Agregar Cita</string>
     <string name="remover">Remover</string>
     <string name="remover_especialidad">Remover Especialidad</string>
@@ -176,7 +176,7 @@
     <string name="domingo">Domingo</string>
     <string name="lunes">Lunes</string>
     <string name="martes">Martes</string>
-    <string name="miercoles">Miercoles</string>
+    <string name="miercoles">Miércoles</string>
     <string name="jueves">Jueves</string>
     <string name="viernes">Viernes</string>
     <string name="sabado">Sábado</string>
@@ -185,7 +185,7 @@
         <item>Domingo</item>
         <item>Lunes</item>
         <item>Martes</item>
-        <item>Miercoles</item>
+        <item>Miércoles</item>
         <item>Jueves</item>
         <item>Viernes</item>
         <item>Sábado</item>

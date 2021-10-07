@@ -12,13 +12,15 @@ import java.util.Calendar;
 
 public class ComponenteCita extends LinearLayout {
 
+    public static final byte TARJETA_DOCTOR = 0;
+    public static final byte TARJETA_PACIENTE = 1;
 
     public ComponenteCita(Context context) {
         super(context);
         inflate(context, R.layout.componente_cita, this);
     }
 
-    public ComponenteCita(Context context, Cita cita) {
+    public ComponenteCita(Context context, Cita cita, byte tipoTarjeta) {
         super(context);
         inflate(context, R.layout.componente_cita, this);
 
@@ -35,8 +37,12 @@ public class ComponenteCita extends LinearLayout {
                 :  context.getString(R.string.finalizado));
 
         TextView paciente = findViewById(R.id.componenteCita_paciente_text);
-        Global.establecerFormatoColonTextView(paciente, context.getString(R.string.paciente_colon), cita.getNombrePaciente());
-
+        if(tipoTarjeta == TARJETA_DOCTOR)
+            Global.establecerFormatoColonTextView(paciente, context.getString(R.string.paciente_colon), cita.getNombrePaciente());
+        else {
+            LinearLayout padrePaciente = (LinearLayout) paciente.getParent();
+            padrePaciente.removeView(paciente);
+        }
     }
 
 }

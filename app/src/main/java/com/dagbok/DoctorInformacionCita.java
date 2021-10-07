@@ -109,48 +109,49 @@ public class DoctorInformacionCita extends AppCompatActivity {
 
         String txt_btn = (cita.isActiva()) ? getString(R.string.terminar_tratamiento) : getString(R.string.activar_tratamiento);
         switchTratamiento.setText(txt_btn);
+        if(cita.getProximasFechas() != null) {
+            if (cita.getProximasFechas().size() != 0) {
 
-        if(cita.getProximasFechas().size() != 0) {
+                proximasFechasPadre.setText(obtenerStringCitas(cita, calendar));
+                proximasFechasPadre.setGravity(Gravity.START);
+                proximasFechasPadre.setTextColor(getColor(R.color.black));
 
-            proximasFechasPadre.setText(obtenerStringCitas(cita, calendar));
-            proximasFechasPadre.setGravity(Gravity.START);
-            proximasFechasPadre.setTextColor(getColor(R.color.black));
+                LinearLayout padre = (LinearLayout) proximasFechasPadre.getParent();
 
-            LinearLayout padre = (LinearLayout) proximasFechasPadre.getParent();
+                CardView boton = crearBotonVerMas(getString(R.string.establecer_proxima_fecha));
+                boton.setOnClickListener(view -> {
+                    Timestamp prox = cita.getProximasFechas().get(0);
+                    cita.setFecha(prox);
+                    cita.getProximasFechas().remove(0);
 
-            CardView boton = crearBotonVerMas(getString(R.string.establecer_proxima_fecha));
-            boton.setOnClickListener(view -> {
-                Timestamp prox = cita.getProximasFechas().get(0);
-                cita.setFecha(prox);
-                cita.getProximasFechas().remove(0);
+                    cargando.show();
+                    String id = getIntent().getStringExtra("idCita");
+                    Task<Void> ref = FirebaseFirestore.getInstance().document("Citas/".concat(id))
+                            .update("fecha", cita.getFecha(), "proximasFechas", cita.getProximasFechas());
+                    ref.addOnSuccessListener(unused -> {
+                        setResult(Global.MODIFICO_CITA);
+                        cargando.dismiss();
+                        calendar.setTime(cita.getFecha().toDate());
+                        Global.establecerFormatoColonTextView(fecha, getString(R.string.fecha_colon), Global.crearFormatoTiempo(DoctorInformacionCita.this, calendar));
 
-                cargando.show();
-                String id = getIntent().getStringExtra("idCita");
-                Task<Void> ref = FirebaseFirestore.getInstance().document("Citas/".concat(id))
-                        .update("fecha", cita.getFecha(), "proximasFechas", cita.getProximasFechas());
-                ref.addOnSuccessListener(unused -> {
-                    setResult(Global.MODIFICO_CITA);
-                    cargando.dismiss();
-                    calendar.setTime(cita.getFecha().toDate());
-                    Global.establecerFormatoColonTextView(fecha, getString(R.string.fecha_colon), Global.crearFormatoTiempo(DoctorInformacionCita.this, calendar));
-
-                    StringBuilder data = obtenerStringCitas(cita, calendar);
-                    if(data != null) {
-                        proximasFechasPadre.setText(data);
-                        proximasFechasPadre.setGravity(Gravity.START);
-                        proximasFechasPadre.setTextColor(getColor(R.color.black));
-                    } else {
-                        proximasFechasPadre.setText(R.string.no_hay_proximas_citas);
-                        proximasFechasPadre.setGravity(Gravity.CENTER_HORIZONTAL);
-                        proximasFechasPadre.setTextColor(getColor(R.color.gray_default));
-                        padre.removeViewAt(padre.getChildCount() - 1);
-                    }
-                }).addOnFailureListener(e -> {
-                    cargando.dismiss();
-                    Toast.makeText(DoctorInformacionCita.this, R.string.hubo_error, Toast.LENGTH_LONG).show();
+                        StringBuilder data = obtenerStringCitas(cita, calendar);
+                        if (data != null) {
+                            proximasFechasPadre.setText(data);
+                            proximasFechasPadre.setGravity(Gravity.START);
+                            proximasFechasPadre.setTextColor(getColor(R.color.black));
+                        } else {
+                            proximasFechasPadre.setText(R.string.no_hay_proximas_citas);
+                            proximasFechasPadre.setGravity(Gravity.CENTER_HORIZONTAL);
+                            proximasFechasPadre.setTextColor(getColor(R.color.gray_default));
+                            padre.removeViewAt(padre.getChildCount() - 1);
+                        }
+                    }).addOnFailureListener(e -> {
+                        cargando.dismiss();
+                        Toast.makeText(DoctorInformacionCita.this, R.string.hubo_error, Toast.LENGTH_LONG).show();
+                    });
                 });
-            });
-            padre.addView(boton);
+                padre.addView(boton);
+            }
         }
     }
 

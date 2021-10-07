@@ -52,7 +52,8 @@
                 android:layout_height="wrap_content"
                 android:text="@string/no_hay_citas"
                 android:textAlignment="center"
-                android:textSize="20sp"
+                android:textSize="24sp"
+                android:textStyle="bold"
                 android:fontFamily="@font/coolvetica"/>
         </LinearLayout>
     </LinearLayout>

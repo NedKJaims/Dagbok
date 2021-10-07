@@ -135,18 +135,17 @@ public class DoctorListaCitas extends AppCompatActivity {
 
     private void cargarListaCitas() {
         Calendar calendar = Calendar.getInstance();
-        //calendar.set(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH),0,0);
-        calendar.set(2021,8,16,0,0);
+        calendar.set(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH),0,0);
         Timestamp fechaPrueba = new Timestamp(calendar.getTime());
 
         Query ref = FirebaseFirestore.getInstance().collection("Citas")
                 .whereEqualTo("idDoctor", Global.firebaseUsuario.getUid());
         if(sentidoCarga == NUEVAS_ACTIVAS) {
-            ref = ref.whereEqualTo("activa", true).whereGreaterThanOrEqualTo("fecha", fechaPrueba)
-                    .limit(10).orderBy("fecha");
+            ref = ref.whereGreaterThanOrEqualTo("fecha", fechaPrueba)
+                    .limit(10).orderBy("fecha").orderBy("activa");
         } else if(sentidoCarga == VIEJAS_NO_ACTIVAS) {
             ref = ref.whereLessThanOrEqualTo("fecha", fechaPrueba)
-                    .limit(10).orderBy("fecha", Query.Direction.DESCENDING);
+                    .limit(10).orderBy("fecha", Query.Direction.DESCENDING).orderBy("activa");
         }
 
         if(ultimaCitaCapturada == null) {
@@ -166,7 +165,8 @@ public class DoctorListaCitas extends AppCompatActivity {
                     Cita citaLocal = queryDocumentSnapshots.getDocuments().get(i).toObject(Cita.class);
                     String id = queryDocumentSnapshots.getDocuments().get(i).getId();
 
-                    ComponenteCita componenteCita = new ComponenteCita(DoctorListaCitas.this, Objects.requireNonNull(citaLocal));
+                    byte tipoTarjeta = ComponenteCita.TARJETA_DOCTOR;
+                    ComponenteCita componenteCita = new ComponenteCita(DoctorListaCitas.this, Objects.requireNonNull(citaLocal),tipoTarjeta);
                     LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
                     int margen = (int)(10 * getResources().getDisplayMetrics().density);
                     params.setMargins(margen,margen,margen,margen);
